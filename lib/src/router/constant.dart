@@ -2,7 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 const String initialRoute = '/';
+<<<<<<< HEAD
 const String homePage = '/home';
+=======
+const String mainRoute = '/main';
+>>>>>>> 6b0a1579532fc87613b49435aeef42e5a1a3bf24
 const String registerRoute = '/register';
 const String loginRoute = '/login';
 const String userRoute = '/user';
