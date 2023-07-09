@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:laundry/src/pages/Home/index.dart';
+import 'package:laundry/src/pages/Register/index.dart';
 import 'Login/index.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -11,6 +13,6 @@ class SplashScreen extends StatefulWidget {
 class _SplashScreenState extends State<SplashScreen> {
   @override
   Widget build(BuildContext context) {
-    return LoginPage();
+    return Register();
   }
 }
