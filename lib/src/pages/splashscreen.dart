@@ -1,4 +1,9 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:laundry/src/config/preference.dart';
+import 'package:laundry/src/router/constant.dart';
 import 'package:laundry/src/services/assets.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -9,6 +14,26 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
+  void _init() {
+    Timer(const Duration(seconds: 3), () {
+      getPref();
+    });
+  }
+
+  void getPref() async {
+    String? token = await getToken();
+    if (token != '' && token != null) {
+      Get.offAndToNamed(mainRoute);
+    } else {
+      Get.offAndToNamed(registerRoute);
+    }
+  }
+
+  @override
+  void initState() {
+    _init();
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
