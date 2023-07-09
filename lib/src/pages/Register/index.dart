@@ -2,17 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:laundry/src/router/constant.dart';
 import 'package:laundry/src/services/assets.dart';
-// import 'package:get/get.dart';
-// import 'package:laundry/src/services/assets.dart';
 
-class LoginPage extends StatefulWidget {
-  const LoginPage({super.key});
+class Register extends StatefulWidget {
+  const Register({super.key});
 
   @override
-  State<LoginPage> createState() => _LoginPageState();
+  State<Register> createState() => _RegisterState();
 }
 
-class _LoginPageState extends State<LoginPage> {
+class _RegisterState extends State<Register> {
   bool validate = false;
   bool inHiddenPass = true;
   bool _isHidden = true;
@@ -45,7 +43,7 @@ class _LoginPageState extends State<LoginPage> {
                         ),
                         SizedBox(height: 25),
                         Text(
-                          'Log In',
+                          'Register',
                           style: TextStyle(
                               fontSize: 45,
                               color: Color(0xFF51D0D0),
@@ -78,6 +76,45 @@ class _LoginPageState extends State<LoginPage> {
                             keyboardType: TextInputType.emailAddress,
                             decoration: InputDecoration(
                                 hintText: 'Masukkan Username Anda',
+
+                                // suffix: InkWell(
+                                //   onTap: () {
+                                //     setState(() {});
+                                //   },
+                                // )
+                                errorText: validate
+                                    ? 'Email Tidak boleh kosong'
+                                    : null),
+                          ),
+                        ),
+                        SizedBox(height: 20),
+                        Container(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Container(),
+                              Padding(
+                                padding:
+                                    const EdgeInsets.symmetric(horizontal: 30),
+                                child: Text(
+                                  'Email',
+                                  style: TextStyle(
+                                      fontSize: 20,
+                                      color: Colors.black,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                              )
+                            ],
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 30),
+                          child: TextField(
+                            // obscureText: _isHidden,
+                            controller: email,
+                            keyboardType: TextInputType.emailAddress,
+                            decoration: InputDecoration(
+                                hintText: 'Masukkan Email Anda',
 
                                 // suffix: InkWell(
                                 //   onTap: () {
@@ -139,7 +176,7 @@ class _LoginPageState extends State<LoginPage> {
                                 borderRadius: BorderRadius.circular(8)),
                             child: Center(
                               child: Text(
-                                'Masuk',
+                                'Daftar',
                                 style: TextStyle(
                                     color: Colors.white,
                                     fontSize: 21,
@@ -147,6 +184,26 @@ class _LoginPageState extends State<LoginPage> {
                               ),
                             ),
                           ),
+                        ),
+                        SizedBox(height: 20),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(
+                              "Daftar Sebagai Mitra",
+                              style:
+                                  TextStyle(fontSize: 15, color: Colors.black),
+                            ),
+                            SizedBox(width: 5),
+                            InkWell(
+                              onTap: () => Get.toNamed(loginRoute),
+                              child: Text(
+                                'Di Sini',
+                                style: TextStyle(
+                                    fontSize: 15, color: Color(0xFF51D0D0)),
+                              ),
+                            )
+                          ],
                         ),
                       ],
                     ),
