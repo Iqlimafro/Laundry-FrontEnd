@@ -40,11 +40,9 @@ class _SplashScreenState extends State<SplashScreen> {
     _init();
     super.initState();
   }
+
   @override
   Widget build(BuildContext context) {
-// <<<<<<< HEAD
-    // return Register();
-// =======
     return Scaffold(
       backgroundColor: Colors.white,
       body: SafeArea(
@@ -58,22 +56,19 @@ class _SplashScreenState extends State<SplashScreen> {
                   // height: 200,
                   // width: 200,
                 ),
-                
               ),
               SizedBox(height: 15),
               Text(
                 'Wangi',
                 style: TextStyle(
-                  fontSize: 30,
-                  color: Color(0xFF5DB0A8),
-                  fontWeight: FontWeight.bold
-                ),
+                    fontSize: 30,
+                    color: Color(0xFF5DB0A8),
+                    fontWeight: FontWeight.bold),
               )
             ],
           ),
         ),
       ),
     );
-// >>>>>>> 6b0a1579532fc87613b49435aeef42e5a1a3bf24
   }
 }
