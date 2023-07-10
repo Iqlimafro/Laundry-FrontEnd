@@ -68,10 +68,13 @@ class _MitraDashboardState extends State<MitraDashboard> {
                           SizedBox(height: 15),
                           Row(
                             children: [
-                              Icon(
-                                Icons.supervised_user_circle_sharp,
-                                size: 30,
-                                color: Colors.white,
+                              InkWell(
+                                onTap: () => Get.toNamed(profilRoute),
+                                child: Icon(
+                                  Icons.supervised_user_circle_sharp,
+                                  size: 30,
+                                  color: Colors.white,
+                                ),
                               ),
                               SizedBox(width: 5),
                               Text(
@@ -140,7 +143,7 @@ class _MitraDashboardState extends State<MitraDashboard> {
                     ),
                     SizedBox(height: 20),
                     Container(
-                      height: 230,
+                      height: 240,
                       width: MediaQuery.of(context).size.width,
                       decoration: BoxDecoration(
                           color: Colors.white,
@@ -277,7 +280,7 @@ class _MitraDashboardState extends State<MitraDashboard> {
                                 ],
                               ),
                             ),
-                            SizedBox(height: 10),
+                            // SizedBox(height: 5),
                             Container(
                               padding: EdgeInsets.only(left: 75),
                               child: Row(
@@ -365,7 +368,7 @@ class _MitraDashboardState extends State<MitraDashboard> {
                     ),
                     SizedBox(height: 20),
                     Container(
-                      height: 230,
+                      height: 240,
                       width: MediaQuery.of(context).size.width,
                       decoration: BoxDecoration(
                           color: Colors.white,
@@ -502,7 +505,7 @@ class _MitraDashboardState extends State<MitraDashboard> {
                                 ],
                               ),
                             ),
-                            SizedBox(height: 10),
+                            // SizedBox(height: 10),
                             Container(
                               padding: EdgeInsets.only(left: 75),
                               child: Row(

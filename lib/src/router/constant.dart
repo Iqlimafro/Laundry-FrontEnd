@@ -9,6 +9,7 @@ const String loginRoute = '/login';
 const String userRoute = '/user';
 const String mitraRoute = '/mitra';
 const String keranjangRoute = '/keranjang';
+const String profilRoute = '/profil';
 
 var blueSecond = Color(0xff95DED9);
 var blueMain = Color(0xff51D0D0);

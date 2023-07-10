@@ -5,6 +5,7 @@ import 'package:laundry/src/pages/Mitra/Dashboard/index.dart';
 // =======
 // <<<<<<< HEAD
 import 'package:laundry/src/pages/Home/index.dart';
+import 'package:laundry/src/pages/Profil/index.dart';
 // =======
 // >>>>>>> 6b0a1579532fc87613b49435aeef42e5a1a3bf24
 // >>>>>>> 40c3c4445a5ef7deb73e0be72feb43b5ae294b1b
@@ -22,5 +23,6 @@ final List<GetPage<dynamic>>? routes = [
   GetPage(name: registerRoute, page: () => Register()),
   GetPage(name: userRoute, page: () => UserDashboard()),
   GetPage(name: mitraRoute, page: () => MitraDashboard()),
-   GetPage(name: keranjangRoute, page: () => Keranjang()),
+  GetPage(name: keranjangRoute, page: () => Keranjang()),
+  GetPage(name: profilRoute, page: () => Profil()),
 ];
