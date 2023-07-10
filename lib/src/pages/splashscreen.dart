@@ -1,10 +1,16 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+// <<<<<<< HEAD
+// import 'package:laundry/src/pages/Home/index.dart';
+// import 'package:laundry/src/pages/Register/index.dart';
+// import 'Login/index.dart';
+// =======
 import 'package:get/get.dart';
 import 'package:laundry/src/config/preference.dart';
 import 'package:laundry/src/router/constant.dart';
 import 'package:laundry/src/services/assets.dart';
+// >>>>>>> 6b0a1579532fc87613b49435aeef42e5a1a3bf24
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -36,6 +42,9 @@ class _SplashScreenState extends State<SplashScreen> {
   }
   @override
   Widget build(BuildContext context) {
+// <<<<<<< HEAD
+    // return Register();
+// =======
     return Scaffold(
       backgroundColor: Colors.white,
       body: SafeArea(
@@ -65,5 +74,6 @@ class _SplashScreenState extends State<SplashScreen> {
         ),
       ),
     );
+// >>>>>>> 6b0a1579532fc87613b49435aeef42e5a1a3bf24
   }
 }
