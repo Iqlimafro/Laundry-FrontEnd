@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:laundry/src/router/constant.dart';
 import 'package:laundry/src/services/assets.dart';
 
 class Keranjang extends StatefulWidget {
@@ -24,8 +26,8 @@ class _KeranjangState extends State<Keranjang> {
                   decoration: BoxDecoration(
                       color: Color(0xFF95DED9),
                       borderRadius: BorderRadius.only(
-                          bottomLeft: Radius.circular(20),
-                          bottomRight: Radius.circular(20))),
+                          bottomLeft: Radius.circular(25),
+                          bottomRight: Radius.circular(25))),
                   child: Padding(
                     padding: const EdgeInsets.only(left: 18, top: 20),
                     child: Text(
@@ -302,19 +304,22 @@ class _KeranjangState extends State<Keranjang> {
                                         fontWeight: FontWeight.bold),
                                   ),
                                   SizedBox(width: 20),
-                                  Container(
-                                    height: 35,
-                                    width: 90,
-                                    decoration: BoxDecoration(
-                                        color: Color(0xFF048F98),
-                                        borderRadius: BorderRadius.circular(6)),
-                                    child: Center(
-                                      child: Text(
-                                        'Order',
-                                        style: TextStyle(
-                                            fontSize: 19,
-                                            color: Colors.white,
-                                            fontWeight: FontWeight.w400),
+                                  InkWell(
+                                    onTap: () => Get.toNamed(diterimaRoute),
+                                    child: Container(
+                                      height: 35,
+                                      width: 90,
+                                      decoration: BoxDecoration(
+                                          color: Color(0xFF048F98),
+                                          borderRadius: BorderRadius.circular(6)),
+                                      child: Center(
+                                        child: Text(
+                                          'Order',
+                                          style: TextStyle(
+                                              fontSize: 19,
+                                              color: Colors.white,
+                                              fontWeight: FontWeight.w400),
+                                        ),
                                       ),
                                     ),
                                   )

@@ -1,4 +1,6 @@
 import 'package:get/get.dart';
+import 'package:laundry/src/pages/Diproses/index.dart';
+import 'package:laundry/src/pages/Diterima/index.dart';
 import 'package:laundry/src/pages/Keranjang/index.dart';
 // <<<<<<< HEAD
 import 'package:laundry/src/pages/Mitra/Dashboard/index.dart';
@@ -10,6 +12,7 @@ import 'package:laundry/src/pages/Profil/index.dart';
 // >>>>>>> 6b0a1579532fc87613b49435aeef42e5a1a3bf24
 // >>>>>>> 40c3c4445a5ef7deb73e0be72feb43b5ae294b1b
 import 'package:laundry/src/pages/Register/index.dart';
+import 'package:laundry/src/pages/Selesai/index.dart';
 import 'package:laundry/src/pages/splashscreen.dart';
 import 'package:laundry/src/pages/User/Dashboard/index.dart';
 import 'package:laundry/src/pages/Login/index.dart';
@@ -25,4 +28,7 @@ final List<GetPage<dynamic>>? routes = [
   GetPage(name: mitraRoute, page: () => MitraDashboard()),
   GetPage(name: keranjangRoute, page: () => Keranjang()),
   GetPage(name: profilRoute, page: () => Profil()),
+  GetPage(name: diterimaRoute, page: () => Diterima()),
+  GetPage(name: diprosesRoute, page: () => Diproses()),
+  GetPage(name: selesaiRoute, page: () => Selesai()),
 ];
