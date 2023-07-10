@@ -38,7 +38,7 @@ class _ProfilState extends State<Profil> {
                         Padding(
                           padding: const EdgeInsets.only(top: 35, left: 10),
                           child: Text(
-                            'Profil',
+                            'Profile',
                             style: TextStyle(
                                 color: Colors.white,
                                 fontWeight: FontWeight.bold,
