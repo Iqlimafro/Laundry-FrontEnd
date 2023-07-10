@@ -1,133 +1,95 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:laundry/src/router/constant.dart';
 import 'package:laundry/src/services/assets.dart';
-// import 'package:laundry/src/services/assets.dart';
-// import 'package:laundry/src/services/assets.dart';
 
-class MitraDashboard extends StatefulWidget {
-  const MitraDashboard({super.key});
+class Keranjang extends StatefulWidget {
+  const Keranjang({super.key});
 
   @override
-  State<MitraDashboard> createState() => _MitraDashboardState();
+  State<Keranjang> createState() => _KeranjangState();
 }
 
-class _MitraDashboardState extends State<MitraDashboard> {
-  //
-  //  selectedRadio;
-
-  // @override
-  // void initState() {
-  //   super.initState();
-  //   selectedRadio = 0;
-  // }
-
-  // setSelectedRadio(int val) {
-  //   setState(() {
-  //     selectedRadio = val;
-  //   });
-  // }
+class _KeranjangState extends State<Keranjang> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: SafeArea(
-        child: SingleChildScrollView(
-          child: Column(
-            children: [
-              Stack(
-                children: [
-                  Container(
-                    height: 270,
-                    width: MediaQuery.of(context).size.width,
-                    decoration: BoxDecoration(
-                        color: Color(0xFF95DED9),
-                        borderRadius: BorderRadius.only(
-                            bottomRight: Radius.circular(40),
-                            bottomLeft: Radius.circular(40))),
-                    child: Padding(
-                      padding:
-                          const EdgeInsets.only(left: 20, right: 20, top: 20),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          SizedBox(height: 25),
-                          Text(
-                            'Hello, User',
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 35,
-                                fontWeight: FontWeight.bold),
-                          ),
-                          Text(
-                            'Welcome to Wangi',
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 35,
-                                fontWeight: FontWeight.bold),
-                          ),
-                          SizedBox(height: 15),
-                          Row(
-                            children: [
-                              Icon(
-                                Icons.supervised_user_circle_sharp,
-                                size: 30,
-                                color: Colors.white,
-                              ),
-                              SizedBox(width: 5),
-                              Text(
-                                'Username',
-                                style: TextStyle(
-                                    color: Colors.white, fontSize: 20),
-                              ),
-                            ],
-                          ),
-                          SizedBox(height: 10),
-                          Container(
-                            margin: EdgeInsets.all(5),
-                            padding: EdgeInsets.symmetric(horizontal: 15),
-                            height: 50,
-                            decoration: BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: BorderRadius.circular(30),
-                            ),
-                            child: Row(
-                              children: [
-                                // Icon(Icons.search),
-                                Container(
-                                  margin: EdgeInsets.only(left: 10),
-                                  width: 190,
-                                  child: TextFormField(
-                                    decoration: InputDecoration(
-                                        hintText: "Cari Laundry",
-                                        border: InputBorder.none),
-                                  ),
-                                ),
-                                Spacer(),
-                                Icon(Icons.search),
-                              ],
-                            ),
-                          ),
-                          SizedBox(height: 20),
-                        ],
-                      ),
+    return SafeArea(
+      child: Scaffold(
+        body: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Stack(
+              children: [
+                Container(
+                  height: 100,
+                  width: MediaQuery.of(context).size.width,
+                  decoration: BoxDecoration(
+                      color: Color(0xFF95DED9),
+                      borderRadius: BorderRadius.only(
+                          bottomLeft: Radius.circular(20),
+                          bottomRight: Radius.circular(20))),
+                  child: Padding(
+                    padding: const EdgeInsets.only(left: 18, top: 20),
+                    child: Text(
+                      'Keranjang',
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.w500,
+                          fontSize: 30),
                     ),
                   ),
-                ],
-              ),
-              SizedBox(height: 15),
-              Padding(
-                padding: EdgeInsets.only(left: 25, right: 25),
-                child: Column(
-                  children: [
-                    Container(
-                      height: 35,
-                      width: MediaQuery.of(context).size.width,
-                      decoration: BoxDecoration(
-                          color: Color(0xFF048F98),
-                          borderRadius: BorderRadius.circular(20)),
-                      child: Center(
-                        child: InkWell(
-                          onTap: () => Get.toNamed(keranjangRoute),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(top: 72, left: 20, right: 20),
+                  child: Column(
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Center(
+                            child: Container(
+                              height: 60,
+                              width: 400,
+                              decoration: BoxDecoration(
+                                boxShadow: [
+                                  BoxShadow(
+                                      color: Colors.black87,
+                                      blurRadius: 2,
+                                      offset: const Offset(0, 1))
+                                ],
+                                color: Colors.white,
+                                borderRadius: BorderRadius.circular(10),
+                              ),
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Padding(
+                                    padding: const EdgeInsets.only(
+                                        top: 2, bottom: 2, left: 20),
+                                    child: Text(
+                                      'Search Product',
+                                      style: TextStyle(
+                                          color: Colors.grey, fontSize: 20),
+                                    ),
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.only(
+                                        top: 2, bottom: 2, right: 20),
+                                    child: Icon(Icons.search),
+                                  )
+                                ],
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                      SizedBox(height: 15),
+                      Container(
+                        height: 35,
+                        width: MediaQuery.of(context).size.width,
+                        decoration: BoxDecoration(
+                            color: Color(0xFF048F98),
+                            borderRadius: BorderRadius.circular(20)),
+                        child: Center(
                           child: Text(
                             'Keranjang Anda',
                             style: TextStyle(
@@ -137,9 +99,8 @@ class _MitraDashboardState extends State<MitraDashboard> {
                           ),
                         ),
                       ),
-                    ),
-                    SizedBox(height: 20),
-                    Container(
+                      SizedBox(height: 15),
+                      Container(
                       height: 230,
                       width: MediaQuery.of(context).size.width,
                       decoration: BoxDecoration(
@@ -170,7 +131,8 @@ class _MitraDashboardState extends State<MitraDashboard> {
                                 ),
                                 Row(
                                   children: [
-                                    Image.asset(user),
+                                    Image.asset(icon1),
+                                    SizedBox(width: 13),
                                     Column(
                                       mainAxisAlignment:
                                           MainAxisAlignment.start,
@@ -178,7 +140,7 @@ class _MitraDashboardState extends State<MitraDashboard> {
                                           CrossAxisAlignment.start,
                                       children: [
                                         Text(
-                                          'Nama Customer',
+                                          'Launderette Cafe',
                                           style: TextStyle(
                                               fontSize: 25,
                                               color: Colors.black,
@@ -348,7 +310,7 @@ class _MitraDashboardState extends State<MitraDashboard> {
                                         borderRadius: BorderRadius.circular(6)),
                                     child: Center(
                                       child: Text(
-                                        'Terima',
+                                        'Order',
                                         style: TextStyle(
                                             fontSize: 19,
                                             color: Colors.white,
@@ -359,11 +321,12 @@ class _MitraDashboardState extends State<MitraDashboard> {
                                 ],
                               ),
                             ),
+                            
                           ],
                         ),
                       ),
                     ),
-                    SizedBox(height: 20),
+                    SizedBox(height: 15),
                     Container(
                       height: 230,
                       width: MediaQuery.of(context).size.width,
@@ -395,7 +358,8 @@ class _MitraDashboardState extends State<MitraDashboard> {
                                 ),
                                 Row(
                                   children: [
-                                    Image.asset(user),
+                                    Image.asset(icon2),
+                                    SizedBox(width: 13),
                                     Column(
                                       mainAxisAlignment:
                                           MainAxisAlignment.start,
@@ -403,7 +367,7 @@ class _MitraDashboardState extends State<MitraDashboard> {
                                           CrossAxisAlignment.start,
                                       children: [
                                         Text(
-                                          'Nama Customer',
+                                          'Laundry Kuy',
                                           style: TextStyle(
                                               fontSize: 25,
                                               color: Colors.black,
@@ -573,7 +537,7 @@ class _MitraDashboardState extends State<MitraDashboard> {
                                         borderRadius: BorderRadius.circular(6)),
                                     child: Center(
                                       child: Text(
-                                        'Terima',
+                                        'Order',
                                         style: TextStyle(
                                             fontSize: 19,
                                             color: Colors.white,
@@ -588,11 +552,12 @@ class _MitraDashboardState extends State<MitraDashboard> {
                         ),
                       ),
                     ),
-                  ],
+                    ],
+                  ),
                 ),
-              )
-            ],
-          ),
+              ],
+            )
+          ],
         ),
       ),
     );
