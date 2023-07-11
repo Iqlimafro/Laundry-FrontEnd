@@ -130,7 +130,7 @@ class _LoginPageState extends State<LoginPage> {
                         ),
                         SizedBox(height: 30),
                         InkWell(
-                          onTap: () => Get.toNamed(loginRoute),
+                          onTap: () => Get.toNamed(mitraRoute),
                           child: Container(
                             height: 60,
                             width: 380,
