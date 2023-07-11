@@ -173,7 +173,9 @@ class _MitraDashboardState extends State<MitraDashboard> {
                                 ),
                                 Row(
                                   children: [
-                                    Image.asset(user),
+                                    InkWell(
+                                        onTap: () => Get.toNamed(userRoute),
+                                        child: Image.asset(user)),
                                     Column(
                                       mainAxisAlignment:
                                           MainAxisAlignment.start,

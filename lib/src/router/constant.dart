@@ -13,6 +13,7 @@ const String profilRoute = '/profil';
 const String diterimaRoute = '/diterima';
 const String diprosesRoute = '/diproses';
 const String selesaiRoute = '/selesai';
+const String detailRoute = '/detail';
 
 var blueSecond = Color(0xff95DED9);
 var blueMain = Color(0xff51D0D0);
