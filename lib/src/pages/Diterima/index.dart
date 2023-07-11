@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:laundry/src/router/constant.dart';
 import 'package:laundry/src/services/assets.dart';
 
 class Diterima extends StatefulWidget {
@@ -104,44 +106,50 @@ class _DiterimaState extends State<Diterima> {
                                 ),
                               ),
                               SizedBox(width: 15),
-                              Container(
-                                height: 25,
-                                width: 100,
-                                decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(10),
-                                    boxShadow: [
-                                      BoxShadow(
-                                        color: Color(0xFF51D0D0),
-                                        blurRadius: 1,
-                                      )
-                                    ],
-                                    color: Colors.white),
-                                child: Center(
-                                  child: Text(
-                                    'Diproses',
-                                    style: TextStyle(
-                                        fontSize: 15, color: Color(0xFF51D0D0)),
+                              InkWell(
+                                onTap: () => Get.toNamed(diprosesRoute),
+                                child: Container(
+                                  height: 25,
+                                  width: 100,
+                                  decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(10),
+                                      boxShadow: [
+                                        BoxShadow(
+                                          color: Color(0xFF51D0D0),
+                                          blurRadius: 1,
+                                        )
+                                      ],
+                                      color: Colors.white),
+                                  child: Center(
+                                    child: Text(
+                                      'Diproses',
+                                      style: TextStyle(
+                                          fontSize: 15, color: Color(0xFF51D0D0)),
+                                    ),
                                   ),
                                 ),
                               ),
                               SizedBox(width: 15),
-                              Container(
-                                height: 25,
-                                width: 100,
-                                decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(10),
-                                    boxShadow: [
-                                      BoxShadow(
-                                        color: Color(0xFF51D0D0),
-                                        blurRadius: 1,
-                                      )
-                                    ],
-                                    color: Colors.white),
-                                child: Center(
-                                  child: Text(
-                                    'Selesai',
-                                    style: TextStyle(
-                                        fontSize: 15, color: Color(0xFF51D0D0)),
+                              InkWell(
+                                onTap: () => Get.toNamed(selesaiRoute),
+                                child: Container(
+                                  height: 25,
+                                  width: 100,
+                                  decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(10),
+                                      boxShadow: [
+                                        BoxShadow(
+                                          color: Color(0xFF51D0D0),
+                                          blurRadius: 1,
+                                        )
+                                      ],
+                                      color: Colors.white),
+                                  child: Center(
+                                    child: Text(
+                                      'Selesai',
+                                      style: TextStyle(
+                                          fontSize: 15, color: Color(0xFF51D0D0)),
+                                    ),
                                   ),
                                 ),
                               )
