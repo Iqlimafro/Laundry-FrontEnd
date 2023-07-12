@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:laundry/src/config/size_config.dart';
 import 'package:laundry/src/controller/londrycontroller.dart';
+import 'package:laundry/src/controller/usercontroller.dart';
 import 'package:laundry/src/router/constant.dart';
 import 'package:laundry/src/services/assets.dart';
 
@@ -14,11 +15,14 @@ class UserDashboard extends StatefulWidget {
 
 class _UserDashboardState extends State<UserDashboard> {
   LaundryController londry = Get.put(LaundryController());
+  UserController username = Get.put(UserController());
+
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
     londry.listLondry();
+    username.getuser();
   }
 
   @override
@@ -67,7 +71,7 @@ class _UserDashboardState extends State<UserDashboard> {
                                 height: 70,
                               ),
                               Text(
-                                'Username',
+                                username.user.value.username.toString(),
                                 style: TextStyle(
                                     color: Colors.white, fontSize: 20),
                               ),
