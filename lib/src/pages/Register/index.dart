@@ -189,15 +189,15 @@ class _RegisterState extends State<Register> {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Text(
-                              "Daftar Sebagai Mitra",
+                            const Text(
+                              "Login",
                               style:
                                   TextStyle(fontSize: 15, color: Colors.black),
                             ),
                             SizedBox(width: 5),
                             InkWell(
                               onTap: () => Get.toNamed(loginRoute),
-                              child: Text(
+                              child: const Text(
                                 'Di Sini',
                                 style: TextStyle(
                                     fontSize: 15, color: Color(0xFF51D0D0)),

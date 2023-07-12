@@ -7,6 +7,55 @@ import 'package:laundry/src/services/app_exception.dart';
 import 'package:laundry/src/services/base_client.dart';
 import 'package:laundry/src/services/base_controller.dart';
 
+import '../config/env.dart';
+import '../config/preference.dart';
+import '../model/loginmodel.dart';
+
 class ApiService extends GetConnect with BaseController{
-  
+  Future<LoginModel?> login(String username, String password) async {
+    dynamic body = ({"username": username, "password": password});
+    final response = await BaseClient()
+        .post(globalApi, '/api/login', body, "")
+        .catchError((error) {
+      if (error is BadRequestException) {
+        var apiError = json.decode(error.message!);
+        Get.rawSnackbar(message: apiError["message"]);
+      } else if (error is UnAuthorizedException) {
+        var apiError = json.decode(error.message!);
+        Get.rawSnackbar(message: apiError["message"]);
+      } else {
+        handleError(error);
+      }
+    });
+    print(response);
+    if (response != null) {
+      var produk = loginFromJson(response);
+      return produk;
+    } else {
+      return null;
+    }
+  }
+
+
+  Future getUser() async {
+    final token = await getToken();
+    final response = await BaseClient()
+        .get(globalApi, '/api/user', token)
+        .catchError((error) {
+      if (error is BadRequestException) {
+        var apiError = json.decode(error.message!);
+        // print(error.message!);
+        Get.rawSnackbar(message: apiError["message"]);
+      } else {
+        handleError(error);
+      }
+    });
+    print(response);
+    if (response != null) {
+      var note = loginFromJson(response);
+      return note;
+    } else {
+      return null;
+    }
+  }
 }

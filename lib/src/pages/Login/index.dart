@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:laundry/src/controller/logincontroller.dart';
+import 'package:laundry/src/controller/usercontroller.dart';
 import 'package:laundry/src/router/constant.dart';
 import 'package:laundry/src/services/assets.dart';
 // import 'package:get/get.dart';
@@ -19,6 +21,9 @@ class _LoginPageState extends State<LoginPage> {
   String? finalEmail;
   TextEditingController email = TextEditingController();
   TextEditingController password = TextEditingController();
+  LoginController login = Get.put(LoginController());
+  UserController user = Get.put(UserController());
+
   bool passToggle = true;
   @override
   Widget build(BuildContext context) {
@@ -130,14 +135,24 @@ class _LoginPageState extends State<LoginPage> {
                         ),
                         SizedBox(height: 30),
                         InkWell(
-                          onTap: () => Get.toNamed(mitraRoute),
+                          onTap: () async {
+                            await login.loginUsers(email.text, password.text);
+                            user.getuser();
+                            if (user.user.value.role == 'mitra') {
+                              Get.offAndToNamed(mitraRoute);
+                            } else if (user.user.value.role == 'user') {
+                              Get.offNamed(userRoute);
+                            } else {
+                              return;
+                            }
+                          },
                           child: Container(
                             height: 60,
                             width: 380,
                             decoration: BoxDecoration(
                                 color: Color(0xFF51D0D0),
                                 borderRadius: BorderRadius.circular(8)),
-                            child: Center(
+                            child: const Center(
                               child: Text(
                                 'Masuk',
                                 style: TextStyle(
