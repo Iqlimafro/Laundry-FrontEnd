@@ -9,7 +9,9 @@ import 'package:laundry/src/services/base_controller.dart';
 
 import '../config/env.dart';
 import '../config/preference.dart';
+import '../model/listlondrymodel.dart';
 import '../model/loginmodel.dart';
+import '../model/usermodel.dart';
 
 class ApiService extends GetConnect with BaseController{
   Future<LoginModel?> login(String username, String password) async {
@@ -52,7 +54,29 @@ class ApiService extends GetConnect with BaseController{
     });
     print(response);
     if (response != null) {
-      var note = loginFromJson(response);
+      var note = userFromJson(response);
+      return note;
+    } else {
+      return null;
+    }
+  }
+
+  Future gerlondry() async {
+    final token = await getToken();
+    final response = await BaseClient()
+        .get(globalApi, '/api/get-laundry', "")
+        .catchError((error) {
+      if (error is BadRequestException) {
+        var apiError = json.decode(error.message!);
+        // print(error.message!);
+        Get.rawSnackbar(message: apiError["message"]);
+      } else {
+        handleError(error);
+      }
+    });
+    print(response);
+    if (response != null) {
+      var note = listlondryFromJson(response);
       return note;
     } else {
       return null;

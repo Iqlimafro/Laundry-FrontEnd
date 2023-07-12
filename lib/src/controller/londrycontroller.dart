@@ -1,21 +1,21 @@
 import 'package:get/get.dart';
-import 'package:laundry/src/model/usermodel.dart';
+import 'package:laundry/src/model/listlondrymodel.dart';
 
 import '../services/api.dart';
 
-class UserController extends GetxController {
+class LaundryController extends GetxController {
   var isLoading = true.obs;
-  var user = UserModel().obs;
+  var user = ListLaundryModel().obs;
   @override
   void onInit() {
     // TODO: implement onInit
     super.onInit();
   }
 
-  Future getuser() async {
+  Future listLondry() async {
     try {
       isLoading(true);
-      var res = await ApiService().getUser();
+      var res = await ApiService().gerlondry();
       if (res != null) {
         user.value = res;
       } else {}

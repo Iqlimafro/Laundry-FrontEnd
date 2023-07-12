@@ -137,14 +137,16 @@ class _LoginPageState extends State<LoginPage> {
                         InkWell(
                           onTap: () async {
                             await login.loginUsers(email.text, password.text);
-                            user.getuser();
-                            if (user.user.value.role == 'mitra') {
-                              Get.offAndToNamed(mitraRoute);
+                            user.getuser().then((value) {
+                              if (user.user.value.role == 'mitra') {
+                                Get.offAndToNamed(mitraRoute);
                             } else if (user.user.value.role == 'user') {
-                              Get.offNamed(userRoute);
+                                Get.offNamed(userRoute);
                             } else {
                               return;
                             }
+                            });
+                           
                           },
                           child: Container(
                             height: 60,
