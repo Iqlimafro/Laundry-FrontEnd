@@ -120,14 +120,18 @@ class _UserDashboardState extends State<UserDashboard> {
                       height: SizeConfig.safeBlockVertical! * 30,
                       child: Obx(() {
                         if (londry.isLoading.value) {
-                          return const CircularProgressIndicator();
+                          return const Center(
+                              child: CircularProgressIndicator());
                         } else {
                           return ListView.builder(
                               scrollDirection: Axis.horizontal,
                               itemCount: londry.user.value.data!.length,
                               itemBuilder: (context, index) {
                                 return InkWell(
-                                  onTap: () => Get.toNamed(detailRoute),
+                                  onTap: () => Get.toNamed(detailRoute,
+                                      arguments: [
+                                        londry.user.value.data![index].id
+                                      ]),
                                   child: Padding(
                                     padding: const EdgeInsets.only(right: 10),
                                     child: Column(

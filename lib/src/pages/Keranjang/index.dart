@@ -23,13 +23,13 @@ class _KeranjangState extends State<Keranjang> {
                 Container(
                   height: 100,
                   width: MediaQuery.of(context).size.width,
-                  decoration: BoxDecoration(
+                  decoration: const BoxDecoration(
                       color: Color(0xFF95DED9),
                       borderRadius: BorderRadius.only(
                           bottomLeft: Radius.circular(25),
                           bottomRight: Radius.circular(25))),
-                  child: Padding(
-                    padding: const EdgeInsets.only(left: 18, top: 20),
+                  child: const Padding(
+                    padding: EdgeInsets.only(left: 18, top: 20),
                     child: Text(
                       'Keranjang',
                       style: TextStyle(

@@ -9,6 +9,8 @@ import 'package:laundry/src/services/base_controller.dart';
 
 import '../config/env.dart';
 import '../config/preference.dart';
+import '../model/detaillondrymodel.dart';
+import '../model/itemmodel.dart';
 import '../model/listlondrymodel.dart';
 import '../model/loginmodel.dart';
 import '../model/usermodel.dart';
@@ -77,6 +79,49 @@ class ApiService extends GetConnect with BaseController{
     print(response);
     if (response != null) {
       var note = listlondryFromJson(response);
+      return note;
+    } else {
+      return null;
+    }
+  }
+  Future detaillondry(String id) async {
+    final token = await getToken();
+    final response = await BaseClient()
+        .get(globalApi, '/api/get-laundry/show/$id', "")
+        .catchError((error) {
+      if (error is BadRequestException) {
+        var apiError = json.decode(error.message!);
+        // print(error.message!);
+        Get.rawSnackbar(message: apiError["message"]);
+      } else {
+        handleError(error);
+      }
+    });
+    print(response);
+    if (response != null) {
+      var note = detaillondryFromJson(response);
+      return note;
+    } else {
+      return null;
+    }
+  }
+
+  Future listitem(String id) async {
+    final token = await getToken();
+    final response = await BaseClient()
+        .get(globalApi, '/api/get-items/show/$id', "")
+        .catchError((error) {
+      if (error is BadRequestException) {
+        var apiError = json.decode(error.message!);
+        // print(error.message!);
+        Get.rawSnackbar(message: apiError["message"]);
+      } else {
+        handleError(error);
+      }
+    });
+    print(response);
+    if (response != null) {
+      var note = itemFromJson(response);
       return note;
     } else {
       return null;
