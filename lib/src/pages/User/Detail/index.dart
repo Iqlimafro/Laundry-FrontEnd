@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:laundry/src/config/size_config.dart';
 import 'package:laundry/src/controller/detailondrycontroller.dart';
+import 'package:laundry/src/controller/itemmodel.dart';
 import 'package:laundry/src/services/assets.dart';
 
 import '../../../router/constant.dart';
@@ -16,12 +17,13 @@ class Detail extends StatefulWidget {
 class _DetailState extends State<Detail> {
   DetailLaundryController detail = Get.put(DetailLaundryController());
   var idlond = Get.arguments[0];
-
+  ItemController item = Get.put(ItemController());
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
     detail.detailLondry(idlond.toString());
+    item.listitem(idlond.toString());
   }
 
   @override
@@ -100,10 +102,10 @@ class _DetailState extends State<Detail> {
                               style: TextStyle(
                                   fontSize: 20, fontWeight: FontWeight.bold),
                             ),
-                            SizedBox(height: 15),
+                            const SizedBox(height: 15),
                             Container(
-                              padding:
-                                  EdgeInsets.only(left: 25, right: 25, top: 20),
+                              padding: const EdgeInsets.only(
+                                  left: 25, right: 25, top: 10, bottom: 10),
                               // height: 150,
                               width: MediaQuery.of(context).size.width,
                               decoration: BoxDecoration(
@@ -116,67 +118,108 @@ class _DetailState extends State<Detail> {
                                       offset: const Offset(0, 1))
                                 ],
                               ),
-                              child: ListView.builder(
-                                  itemCount: 2,
-                                  physics: const NeverScrollableScrollPhysics(),
-                                  shrinkWrap: true,
-                                  itemBuilder: (context, index) {
-                                    return Padding(
-                                      padding: const EdgeInsets.only(top: 10),
-                                      child: Row(
-                                        children: [
-                                          Image.asset(
-                                            baju,
-                                            height: 40,
-                                            width: 40,
-                                            fit: BoxFit.fill,
-                                          ),
-                                          SizedBox(width: 10),
-                                          Container(
-                                            height: 40,
-                                            width: 140,
-                                            decoration: BoxDecoration(
-                                                color: Color(0xFF95DED9),
-                                                borderRadius:
-                                                    BorderRadius.circular(10)),
-                                            child: Center(
-                                              child: Text(
-                                                'pepek : Rp 2.000',
-                                                style: TextStyle(
-                                                    fontSize: 17,
-                                                    color: Colors.white,
-                                                    fontWeight:
-                                                        FontWeight.bold),
+                              child: Obx(() {
+                                if (item.isLoading.value) {
+                                  return const Center(
+                                    child: CircularProgressIndicator(),
+                                  );
+                                }
+                                return ListView.builder(
+                                    itemCount: 2,
+                                    physics:
+                                        const NeverScrollableScrollPhysics(),
+                                    shrinkWrap: true,
+                                    itemBuilder: (context, index) {
+                                      return Padding(
+                                        padding: const EdgeInsets.only(top: 10),
+                                        child: Row(
+                                          children: [
+                                            Image.asset(
+                                              baju,
+                                              height: 40,
+                                              width: 40,
+                                              fit: BoxFit.fill,
+                                            ),
+                                            SizedBox(width: 10),
+                                            Container(
+                                              decoration: BoxDecoration(
+                                                  color: Color(0xFF95DED9),
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          10)),
+                                              child: Padding(
+                                                padding:
+                                                    const EdgeInsets.all(8.0),
+                                                child: Center(
+                                                  child: Text(
+                                                    '${item.tes.value.data![index].name} : Rp ${item.tes.value.data![index].pricePcs}',
+                                                    style: const TextStyle(
+                                                        fontSize: 17,
+                                                        color: Colors.white,
+                                                        fontWeight:
+                                                            FontWeight.bold),
+                                                  ),
+                                                ),
                                               ),
                                             ),
-                                          ),
-                                        ],
-                                      ),
-                                    );
-                                  }),
+                                          ],
+                                        ),
+                                      );
+                                    });
+                              }),
                             ),
-                            SizedBox(height: 15),
-                            Text(
+                            const SizedBox(height: 15),
+                            const Text(
+                              'Katalog Kiloan',
+                              style: TextStyle(
+                                  fontSize: 20, fontWeight: FontWeight.bold),
+                            ),
+                            const SizedBox(height: 15),
+                            Obx(() {
+                              if (detail.isLoading.value) {
+                                return const Center(
+                                  child: CircularProgressIndicator(),
+                                );
+                              }
+                              return Row(
+                                children: [
+                                  const Text(
+                                    'Harga Perkilo :',
+                                    style: TextStyle(
+                                        fontSize: 17,
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                  Text(
+                                    detail.tes.value.data![0].priceKilo
+                                        .toString(),
+                                    style: TextStyle(
+                                        fontSize: 17,
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                ],
+                              );
+                            }),
+                            const SizedBox(
+                              height: 15,
+                            ),
+                            const Text(
                               'Description',
                               style: TextStyle(
                                   fontSize: 17, fontWeight: FontWeight.bold),
                             ),
-                            SizedBox(height: 10),
-                            Text(
-                              'Snack kacang coklat kekinian cocok dikonsumsi',
-                              style: TextStyle(
-                                  fontSize: 17, color: Color(0xFF717171)),
-                            ),
-                            Text(
-                              'anak muda yang terbuat dari bahan',
-                              style: TextStyle(
-                                  fontSize: 17, color: Color(0xFF717171)),
-                            ),
-                            Text(
-                              'kacang pilihan',
-                              style: TextStyle(
-                                  fontSize: 17, color: Color(0xFF717171)),
-                            ),
+                            const SizedBox(height: 10),
+                            Obx(() {
+                              if (detail.isLoading.value) {
+                                return const Center(
+                                  child: CircularProgressIndicator(),
+                                );
+                              }
+                              return Text(
+                                detail.tes.value.data![0].description!,
+                                style: const TextStyle(
+                                    fontSize: 17, color: Color(0xFF717171)),
+                              );
+                            }),
                             const SizedBox(
                               height: 20,
                             ),
