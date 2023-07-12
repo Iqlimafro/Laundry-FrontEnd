@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:laundry/src/config/preference.dart';
 import 'package:laundry/src/model/usermodel.dart';
 
 import '../services/api.dart';
