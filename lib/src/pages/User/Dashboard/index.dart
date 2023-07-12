@@ -5,6 +5,7 @@ import 'package:laundry/src/controller/londrycontroller.dart';
 import 'package:laundry/src/controller/usercontroller.dart';
 import 'package:laundry/src/router/constant.dart';
 import 'package:laundry/src/services/assets.dart';
+import 'package:laundry/src/pages/navbar.dart';
 
 class UserDashboard extends StatefulWidget {
   const UserDashboard({super.key});
@@ -173,6 +174,7 @@ class _UserDashboardState extends State<UserDashboard> {
           ),
         ),
       ),
+      bottomNavigationBar: Navbar(),
     );
   }
 }

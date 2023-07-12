@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:laundry/src/router/constant.dart';
 import 'package:laundry/src/services/assets.dart';
+import 'package:get/get.dart';
+import 'package:laundry/src/router/constant.dart';
+import 'package:laundry/src/controller/usercontroller.dart';
 
 class Profil extends StatefulWidget {
   const Profil({super.key});
@@ -11,6 +14,15 @@ class Profil extends StatefulWidget {
 }
 
 class _ProfilState extends State<Profil> {
+  UserController username = Get.put(UserController());
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    username.getuser();
+  }
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -29,10 +41,13 @@ class _ProfilState extends State<Profil> {
                       children: [
                         Padding(
                           padding: const EdgeInsets.only(left: 15, top: 30),
-                          child: Icon(
-                            Icons.arrow_back,
-                            color: Colors.white,
-                            size: 30,
+                          child: InkWell(
+                            onTap: () => Get.back(),
+                            child: Icon(
+                              Icons.arrow_back,
+                              color: Colors.white,
+                              size: 30,
+                            ),
                           ),
                         ),
                         Padding(
@@ -71,7 +86,7 @@ class _ProfilState extends State<Profil> {
                                   Image.asset(user),
                                   SizedBox(width: 5),
                                   Text(
-                                    'Username',
+                                    username.user.value.username!,
                                     style: TextStyle(
                                         fontSize: 30,
                                         fontWeight: FontWeight.bold,
