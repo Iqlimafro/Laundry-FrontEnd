@@ -6,6 +6,8 @@ import 'package:get/get.dart';
 import 'package:laundry/src/router/constant.dart';
 import 'package:laundry/src/controller/usercontroller.dart';
 
+import '../navbar.dart';
+
 class Profil extends StatefulWidget {
   const Profil({super.key});
 
@@ -125,6 +127,7 @@ class _ProfilState extends State<Profil> {
             ],
           ),
         ),
+        bottomNavigationBar: Navbar(),
       ),
     );
   }

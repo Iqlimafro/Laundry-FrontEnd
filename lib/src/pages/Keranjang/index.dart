@@ -410,7 +410,7 @@ class _KeranjangState extends State<Keranjang> {
             )
           ],
         ),
-        bottomNavigationBar: Navbar(),
+        
       ),
     );
   }

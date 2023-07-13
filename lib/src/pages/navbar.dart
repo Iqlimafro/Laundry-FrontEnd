@@ -18,7 +18,7 @@ class _NavbarState extends State<Navbar> with SingleTickerProviderStateMixin {
   void initState() {
     // TODO: implement initState
     super.initState();
-    _tabController = TabController(length: 3, vsync: this);
+    _tabController = TabController(length: 2, vsync: this);
   }
 
   @override
@@ -58,16 +58,7 @@ class _NavbarState extends State<Navbar> with SingleTickerProviderStateMixin {
                   text: "Home",
                 ),
               ),
-              InkWell(
-                onTap: () => Get.offAndToNamed(keranjangRoute),
-                child: Tab(
-                  icon: Icon(
-                    Icons.shopping_cart_sharp,
-                    size: 24.0,
-                  ),
-                  text: "Cart",
-                ),
-              ),
+             
               InkWell(
                 onTap: () => Get.offAndToNamed(profilRoute),
                 child: Tab(

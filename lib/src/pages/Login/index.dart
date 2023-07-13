@@ -136,17 +136,19 @@ class _LoginPageState extends State<LoginPage> {
                         SizedBox(height: 30),
                         InkWell(
                           onTap: () async {
+                            if (email.text == "" || password.text == "") {
+                              Get.rawSnackbar(message: "isi user dan password");
+                            }
                             await login.loginUsers(email.text, password.text);
                             user.getuser().then((value) {
                               if (user.user.value.role == 'mitra') {
                                 Get.offAndToNamed(mitraRoute);
-                            } else if (user.user.value.role == 'user') {
-                                Get.offNamed(userRoute);
-                            } else {
-                              return;
-                            }
+                              } else if (user.user.value.role == 'user') {
+                                Get.offAndToNamed(userRoute);
+                              } else {
+                                return;
+                              }
                             });
-                           
                           },
                           child: Container(
                             height: 60,
