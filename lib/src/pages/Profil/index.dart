@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:laundry/src/config/preference.dart';
 import 'package:laundry/src/router/constant.dart';
 import 'package:laundry/src/services/assets.dart';
 import 'package:get/get.dart';
@@ -101,7 +102,10 @@ class _ProfilState extends State<Profil> {
                         ),
                         SizedBox(height: 25),
                         InkWell(
-                          onTap: () => Get.toNamed(loginRoute),
+                          onTap: () {
+                            removeToken();
+                            Get.toNamed(registerRoute);
+                          },
                           child: Container(
                             height: 50,
                             width: MediaQuery.of(context).size.width,
@@ -127,7 +131,6 @@ class _ProfilState extends State<Profil> {
             ],
           ),
         ),
-        bottomNavigationBar: Navbar(),
       ),
     );
   }

@@ -1,88 +1,119 @@
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
+import 'package:laundry/src/pages/Diterima/index.dart';
+import 'package:laundry/src/pages/Profil/index.dart';
+import 'package:laundry/src/pages/User/Dashboard/index.dart';
 import 'package:laundry/src/router/constant.dart';
 import 'package:laundry/src/router/router.dart';
 
-class Navbar extends StatefulWidget {
-  const Navbar({super.key});
+import '../config/size_config.dart';
+
+class MainPage extends StatefulWidget {
+  const MainPage({Key? key}) : super(key: key);
 
   @override
-  State<Navbar> createState() => _NavbarState();
+  _MainPageState createState() => _MainPageState();
 }
 
-class _NavbarState extends State<Navbar> with SingleTickerProviderStateMixin {
-  String title = 'BottomNavigationBar';
-  late TabController _tabController;
+class _MainPageState extends State<MainPage> {
+  int _selectedIndex = 0;
+  final PageStorageBucket bucket = PageStorageBucket();
+  DateTime? currentBackPressTime;
 
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-    _tabController = TabController(length: 3, vsync: this);
-  }
+  final List<Widget> _pages = <Widget>[
+    UserDashboard(
+      key: const PageStorageKey<String>('pa-home'),
+    ),
+    Diterima(
+      key: const PageStorageKey<String>('pa-search'),
+    ),
+    Profil(
+      key: const PageStorageKey<String>('pa-favorite'),
+    ),
+    
+  ];
+  Widget _bottomNavigationBar(int selectedIndex) => Align(
+        alignment: FractionalOffset.bottomCenter,
+        child: ClipRect(
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(20),
+            child: BottomNavigationBar(
+              type: BottomNavigationBarType.fixed,
+              selectedItemColor: Colors.white,
+              backgroundColor: blueSecond,
+              unselectedIconTheme: IconThemeData(color: Colors.white54),
+              onTap: (int index) => setState(() => _selectedIndex = index),
+              currentIndex: selectedIndex,
+              items: const <BottomNavigationBarItem>[
+                BottomNavigationBarItem(
+                  icon: Icon(
+                    Icons.home_sharp,
+                    size: 30,
+                  ),
+                  label: 'Home',
+                ),
+                BottomNavigationBarItem(
+                  icon: Icon(
+                    Icons.search,
+                    size: 30,
+                  ),
+                  label: 'History',
+                ),
+                BottomNavigationBarItem(
+                  icon: Icon(Icons.favorite_border, size: 30),
+                  label: 'Profile',
+                ),
+              ],
+            ),
+          ),
+        ),
+      );
 
-  @override
-  void dispose() {
-    // TODO: implement dispose
-    super.dispose();
-    _tabController.dispose();
+  Future<bool> _onWillPop() {
+    DateTime now = DateTime.now();
+    if (currentBackPressTime == null ||
+        now.difference(currentBackPressTime!) > const Duration(seconds: 2)) {
+      currentBackPressTime = now;
+
+      Fluttertoast.showToast(
+          msg: "Tekan Sekali Lagi Untuk Keluar",
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.CENTER,
+          timeInSecForIosWeb: 1,
+          backgroundColor: Colors.grey.withOpacity(0.5),
+          // textColor: Colors./,
+          fontSize: 16.0);
+      return Future.value(false);
+    }
+    return Future.value(true);
   }
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: EdgeInsets.all(14.0),
-      child: ClipRRect(
-        borderRadius: BorderRadius.all(
-          Radius.circular(50.0),
-        ),
-        child: Container(
-          color: blueMain,
-          child: TabBar(
-            labelColor: Color(0xff5DB0A8),
-            unselectedLabelColor: Colors.white,
-            labelStyle: TextStyle(fontSize: 10.0),
-            indicator: UnderlineTabIndicator(
-              borderSide: BorderSide(color: Colors.black, width: 0.0),
-              insets: EdgeInsets.fromLTRB(50.0, 0.0, 50.0, 40.0),
-            ),
-            indicatorColor: Colors.black,
-            tabs: <Widget>[
-              InkWell(
-                onTap: () => Get.offAndToNamed(userRoute),
-                child: Tab(
-                  icon: Icon(
-                    Icons.home,
-                    size: 24.0,
-                  ),
-                  text: "Home",
-                ),
+    SizeConfig().init(context);
+    return WillPopScope(
+        onWillPop: _onWillPop,
+        child: Scaffold(
+          resizeToAvoidBottomInset: false,
+          // bottomNavigationBar: Container(
+          //     height: SizeConfig.blockSizeVertical! * 8,
+          //     child: _bottomNavigationBar(_selectedIndex)),
+          body: Stack(
+            children: [
+              PageStorage(
+                child: _pages[_selectedIndex],
+                bucket: bucket,
               ),
-             InkWell(
-                onTap: () => Get.offAndToNamed(diterimaRoute),
-                child: Tab(
-                  icon: Icon(
-                    Icons.shopping_cart_checkout_sharp,
-                    size: 24.0,
-                  ),
-                  text: "Order Saya",
-                ),
-              ),
-              InkWell(
-                onTap: () => Get.offAndToNamed(profilRoute),
-                child: Tab(
-                  icon: Icon(
-                    Icons.account_circle_outlined,
-                    size: 24.0,
-                  ),
-                  text: "Profile",
-                ),
-              ),
+              Padding(
+                  padding:
+                      const EdgeInsets.only(bottom: 20, left: 20, right: 20),
+                  child: _bottomNavigationBar(_selectedIndex)),
+              Container(
+                height: 20,
+              )
             ],
-            controller: _tabController,
           ),
-        ),
-      ),
-    );
+        ));
   }
 }
