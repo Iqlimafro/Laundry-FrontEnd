@@ -88,7 +88,7 @@ class _ProfilState extends State<Profil> {
                                   Image.asset(user),
                                   SizedBox(width: 5),
                                   Text(
-                                    username.user.value.username!,
+                                    username.user.value.username!.toString(),
                                     style: TextStyle(
                                         fontSize: 30,
                                         fontWeight: FontWeight.bold,
