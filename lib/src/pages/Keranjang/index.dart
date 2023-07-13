@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:laundry/src/controller/ordercontroller.dart';
 import 'package:laundry/src/controller/usercontroller.dart';
+import 'package:laundry/src/pages/navbar.dart';
 import 'package:laundry/src/router/constant.dart';
 import 'package:laundry/src/services/assets.dart';
 
@@ -409,6 +410,7 @@ class _KeranjangState extends State<Keranjang> {
             )
           ],
         ),
+        bottomNavigationBar: Navbar(),
       ),
     );
   }
