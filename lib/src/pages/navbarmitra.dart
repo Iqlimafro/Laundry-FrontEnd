@@ -1,37 +1,29 @@
-import 'package:fluttertoast/fluttertoast.dart';
-import 'package:get/get.dart';
 import 'package:flutter/material.dart';
-import 'package:laundry/src/pages/Diterima/index.dart';
-import 'package:laundry/src/pages/Profil/index.dart';
-import 'package:laundry/src/pages/User/Dashboard/index.dart';
-import 'package:laundry/src/router/constant.dart';
-import 'package:laundry/src/router/router.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:laundry/src/pages/Mitra/Dashboard/index.dart';
 
 import '../config/size_config.dart';
+import '../router/constant.dart';
 
-class MainPage extends StatefulWidget {
-  const MainPage({Key? key}) : super(key: key);
+class MainPageMitra extends StatefulWidget {
+  const MainPageMitra({Key? key}) : super(key: key);
 
   @override
-  _MainPageState createState() => _MainPageState();
+  _MainPageMitraState createState() => _MainPageMitraState();
 }
 
-class _MainPageState extends State<MainPage> {
+class _MainPageMitraState extends State<MainPageMitra> {
   int _selectedIndex = 0;
   final PageStorageBucket bucket = PageStorageBucket();
   DateTime? currentBackPressTime;
 
   final List<Widget> _pages = <Widget>[
-    UserDashboard(
+    MitraDashboard(
       key: const PageStorageKey<String>('pa-home'),
     ),
-    Diterima(
-      key: const PageStorageKey<String>('pa-search'),
-    ),
-    Profil(
+    Container(
       key: const PageStorageKey<String>('pa-favorite'),
     ),
-    
   ];
   Widget _bottomNavigationBar(int selectedIndex) => Align(
         alignment: FractionalOffset.bottomCenter,
@@ -52,13 +44,6 @@ class _MainPageState extends State<MainPage> {
                     size: 30,
                   ),
                   label: 'Home',
-                ),
-                BottomNavigationBarItem(
-                  icon: Icon(
-                    Icons.search,
-                    size: 30,
-                  ),
-                  label: 'History',
                 ),
                 BottomNavigationBarItem(
                   icon: Icon(Icons.person, size: 30),

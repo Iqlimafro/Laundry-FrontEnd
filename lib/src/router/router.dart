@@ -9,6 +9,7 @@ import 'package:laundry/src/pages/Register/index.dart';
 import 'package:laundry/src/pages/Selesai/index.dart';
 import 'package:laundry/src/pages/User/Detail/index.dart';
 import 'package:laundry/src/pages/navbar.dart';
+import 'package:laundry/src/pages/navbarmitra.dart';
 import 'package:laundry/src/pages/splashscreen.dart';
 import 'package:laundry/src/pages/User/Dashboard/index.dart';
 import 'package:laundry/src/pages/Login/index.dart';
@@ -21,7 +22,7 @@ final List<GetPage<dynamic>>? routes = [
   GetPage(name: loginRoute, page: () => LoginPage()),
   GetPage(name: registerRoute, page: () => Register()),
   GetPage(name: userRoute, page: () => MainPage()),
-  GetPage(name: mitraRoute, page: () => MitraDashboard()),
+  GetPage(name: mitraRoute, page: () => MainPageMitra()),
   GetPage(name: keranjangRoute, page: () => Keranjang()),
   GetPage(name: profilRoute, page: () => Profil()),
   GetPage(name: diterimaRoute, page: () => Diterima()),
