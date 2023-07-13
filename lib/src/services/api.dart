@@ -13,6 +13,7 @@ import '../model/detaillondrymodel.dart';
 import '../model/itemmodel.dart';
 import '../model/listlondrymodel.dart';
 import '../model/loginmodel.dart';
+import '../model/ordermodel.dart';
 import '../model/usermodel.dart';
 
 class ApiService extends GetConnect with BaseController{
@@ -123,6 +124,39 @@ class ApiService extends GetConnect with BaseController{
     if (response != null) {
       var note = itemFromJson(response);
       return note;
+    } else {
+      return null;
+    }
+  }
+
+  Future<OrderModel?> order(String deskripsi, String metode, String berat,
+      String jumlah, String userid, String londryid) async {
+    dynamic body = ({
+      "type": deskripsi,
+      "pickup": metode,
+      "weight": berat,
+      "status": "Diproses",
+      "total_amount": jumlah,
+      "user_id": userid,
+      "laundry_id": londryid
+    });
+    final response = await BaseClient()
+        .post(globalApi, '/api/add-order', body, "")
+        .catchError((error) {
+      if (error is BadRequestException) {
+        var apiError = json.decode(error.message!);
+        Get.rawSnackbar(message: apiError["message"]);
+      } else if (error is UnAuthorizedException) {
+        var apiError = json.decode(error.message!);
+        Get.rawSnackbar(message: apiError["message"]);
+      } else {
+        handleError(error);
+      }
+    });
+    print(response);
+    if (response != null) {
+      var produk = orderFromJson(response);
+      return produk;
     } else {
       return null;
     }

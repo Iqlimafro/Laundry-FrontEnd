@@ -34,13 +34,22 @@ class _DetailState extends State<Detail> {
           children: [
             Stack(
               children: [
-                Container(
-                  height: height(context) * 0.3,
-                  // width: MediaQuery.of(context).size.width,
-                  decoration: BoxDecoration(
-                      image: DecorationImage(
-                          image: AssetImage(icon5), fit: BoxFit.cover)),
-                ),
+                Obx(() {
+                  if (detail.isLoading.value) {
+                    return const Center(
+                      child: CircularProgressIndicator(),
+                    );
+                  }
+                  return Container(
+                    height: height(context) * 0.3,
+                    // width: MediaQuery.of(context).size.width,
+                    decoration: BoxDecoration(
+                        image: DecorationImage(
+                            image: NetworkImage(
+                                detail.tes.value.data![0].image.toString()),
+                            fit: BoxFit.cover)),
+                  );
+                }),
                 Padding(
                   padding: EdgeInsets.only(left: 20, top: 200, right: 20),
                   child: Center(
@@ -228,7 +237,13 @@ class _DetailState extends State<Detail> {
                                 padding: const EdgeInsets.only(
                                     left: 15, right: 15, bottom: 15),
                                 child: InkWell(
-                                  onTap: () => Get.toNamed(keranjangRoute),
+                                  onTap: () =>
+                                      Get.toNamed(keranjangRoute, arguments: [
+                                    detail.tes.value.data![0].id,
+                                    detail.tes.value.data![0].name,
+                                    detail.tes.value.data![0].image,
+                                    detail.tes.value.data![0].priceKilo
+                                  ]),
                                   child: Container(
                                     height: 50,
                                     // width: 350,
@@ -236,7 +251,7 @@ class _DetailState extends State<Detail> {
                                         color: Color(0xFF51D0D0),
                                         borderRadius:
                                             BorderRadius.circular(10)),
-                                    child: Center(
+                                    child: const Center(
                                       child: Text(
                                         'Tambah ke Keranjang',
                                         style: TextStyle(

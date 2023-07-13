@@ -29,14 +29,17 @@ class _SplashScreenState extends State<SplashScreen> {
   }
 
   void getPref() async {
-    
     String? token = await getToken();
     if (token != '' && token != null) {
       await user.getuser();
+      if (user.user.value.role == null) {
+        Get.offAndToNamed(registerRoute);
+      } else {
       if (user.user.value.role == 'mitra') {
         Get.offAndToNamed(mitraRoute);
       } else if (user.user.value.role == 'user') {
         Get.offAndToNamed(userRoute);
+      }
       }
     } else {
       Get.offAndToNamed(registerRoute);
