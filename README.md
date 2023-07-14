@@ -1,6 +1,8 @@
-# laundry
+# Skripsi laundry
 
-A new Flutter project.
+
+![alt text](https://github.com/Iqlimafro/Laundry-FrontEnd/blob/main/assets/Wangi.png?raw=true)
+Aplikasi Laundry
 
 ## Getting Started
 
