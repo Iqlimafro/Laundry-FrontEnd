@@ -234,13 +234,44 @@ class _DiterimaState extends State<Diterima> {
                                                           fontWeight:
                                                               FontWeight.bold),
                                                     ),
-                                                    SizedBox(height: 10),
+                                                    const SizedBox(height: 10),
                                                     SizedBox(
                                                       width: SizeConfig
                                                               .blockSizeVertical! *
                                                           30,
                                                       child: Text(
                                                         'Mohon ditunggu untuk segera diproses oleh mitra',
+                                                        style: TextStyle(
+                                                            fontSize: 17,
+                                                            color: Colors.black,
+                                                            fontWeight:
+                                                                FontWeight
+                                                                    .w400),
+                                                      ),
+                                                    ),
+                                                    const SizedBox(height: 10),
+                                                    SizedBox(
+                                                      width: SizeConfig
+                                                              .blockSizeVertical! *
+                                                          30,
+                                                      child: const Text(
+                                                        'Catatan',
+                                                        style: TextStyle(
+                                                            fontSize: 17,
+                                                            color: Color(
+                                                                0xFF048F98),
+                                                            fontWeight:
+                                                                FontWeight
+                                                                    .w600),
+                                                      ),
+                                                    ),
+                                                    SizedBox(
+                                                      width: SizeConfig
+                                                              .blockSizeVertical! *
+                                                          30,
+                                                      child: Text(
+                                                        transaksi.user.value
+                                                            .data![index].type!,
                                                         style: TextStyle(
                                                             fontSize: 17,
                                                             color: Colors.black,

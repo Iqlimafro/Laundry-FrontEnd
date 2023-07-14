@@ -139,31 +139,40 @@ class _UserDashboardState extends State<UserDashboard> {
                                       ]),
                                   child: Padding(
                                     padding: const EdgeInsets.only(right: 10),
-                                    child: Column(
-                                      children: [
-                                        Container(
-                                          padding: EdgeInsets.only(bottom: 70),
-                                          height: 180,
-                                          width: 140,
-                                          decoration: BoxDecoration(
-                                            borderRadius:
-                                                BorderRadius.circular(10),
-                                            color: Colors.white,
-                                            boxShadow: const [
-                                              BoxShadow(
-                                                  color: Colors.black38,
-                                                  blurRadius: 2,
-                                                  offset: const Offset(0, 1))
-                                            ],
+                                    child: Container(
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(10),
+                                        color: Colors.white,
+                                        boxShadow: const [
+                                          BoxShadow(
+                                              color: Colors.black38,
+                                              blurRadius: 2,
+                                              offset: const Offset(0, 1))
+                                        ],
+                                      ),
+                                      child: Column(
+                                        children: [
+                                          Container(
+                                            // padding: EdgeInsets.only(bottom: 70),
+                                            height: 180,
+                                            width: 140,
+                                            
+                                            child: Image.network(
+                                              londry.user.value.data![index]
+                                                  .image!,
+                                              height: 200,
+                                              width: 150,
+                                            ),
                                           ),
-                                          child: Image.network(
+                                          Text(
                                             londry
-                                                .user.value.data![index].image!,
-                                            height: 200,
-                                            width: 150,
-                                          ),
-                                        ),
-                                      ],
+                                                .user.value.data![index].name!,
+                                            style: TextStyle(
+                                                fontSize: 17,
+                                                fontWeight: FontWeight.w500),
+                                          )
+                                        ],
+                                      ),
                                     ),
                                   ),
                                 );
