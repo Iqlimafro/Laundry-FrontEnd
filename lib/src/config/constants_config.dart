@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:intl/intl.dart';
 
 void getToast(String text) {
   Fluttertoast.showToast(
@@ -11,4 +12,19 @@ void getToast(String text) {
     textColor: Colors.white,
     fontSize: 16.0,
   );
+}
+String dateFormatddMMMMyyyyhhmm(DateTime? date) {
+  if (date != null)
+    return '${DateFormat(
+      'dd MMMM yyyy, HH:mm',
+      'id_ID',
+    ).format(date)}';
+  return '';
+}
+
+String formatDate(String datetime) {
+  DateTime parsedDatetime = DateTime.parse(datetime);
+  String formattedDate =
+      DateFormat('dd MMMM yyyy', 'id_ID').format(parsedDatetime);
+  return formattedDate;
 }

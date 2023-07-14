@@ -39,35 +39,21 @@ class _ProfilState extends State<Profil> {
                     height: 350,
                     width: MediaQuery.of(context).size.width,
                     decoration: BoxDecoration(color: Color(0xFF95DED9)),
-                    child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.only(left: 15, top: 30),
-                          child: InkWell(
-                            onTap: () => Get.back(),
-                            child: Icon(
-                              Icons.arrow_back,
-                              color: Colors.white,
-                              size: 30,
-                            ),
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.only(top: 35, left: 10),
-                          child: Text(
-                            'Profile',
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontWeight: FontWeight.bold,
-                                fontSize: 25),
-                          ),
-                        )
-                      ],
+                    child: const Padding(
+                      padding: EdgeInsets.only(top: 35),
+                      child: Text(
+                        'Profile',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 25),
+                      ),
                     ),
                   ),
                   Padding(
-                    padding: EdgeInsets.only(left: 20, right: 20, top: 300),
+                    padding:
+                        const EdgeInsets.only(left: 20, right: 20, top: 300),
                     child: Column(
                       children: [
                         Container(
@@ -88,13 +74,20 @@ class _ProfilState extends State<Profil> {
                                 children: [
                                   Image.asset(user),
                                   SizedBox(width: 5),
-                                  Text(
-                                    username.user.value.username!.toString(),
-                                    style: TextStyle(
-                                        fontSize: 30,
-                                        fontWeight: FontWeight.bold,
-                                        color: Color(0xFF51D0D0)),
-                                  )
+                                  Obx(() {
+                                    if (username.isLoading.value) {
+                                      return const Center(
+                                        child: CircularProgressIndicator(),
+                                      );
+                                    }
+                                    return Text(
+                                      username.user.value.username!.toString(),
+                                      style: TextStyle(
+                                          fontSize: 30,
+                                          fontWeight: FontWeight.bold,
+                                          color: Color(0xFF51D0D0)),
+                                    );
+                                  })
                                 ],
                               ),
                             ),

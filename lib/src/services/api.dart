@@ -14,6 +14,7 @@ import '../model/itemmodel.dart';
 import '../model/listlondrymodel.dart';
 import '../model/loginmodel.dart';
 import '../model/ordermodel.dart';
+import '../model/transaksimodel.dart';
 import '../model/usermodel.dart';
 
 class ApiService extends GetConnect with BaseController{
@@ -123,6 +124,28 @@ class ApiService extends GetConnect with BaseController{
     print(response);
     if (response != null) {
       var note = itemFromJson(response);
+      return note;
+    } else {
+      return null;
+    }
+  }
+
+  Future transaksi(String id) async {
+    final token = await getToken();
+    final response = await BaseClient()
+        .get(globalApi, '/api/get-order/show/$id', "")
+        .catchError((error) {
+      if (error is BadRequestException) {
+        var apiError = json.decode(error.message!);
+        // print(error.message!);
+        Get.rawSnackbar(message: apiError["message"]);
+      } else {
+        handleError(error);
+      }
+    });
+    print(response);
+    if (response != null) {
+      var note = transaksiFromJson(response);
       return note;
     } else {
       return null;

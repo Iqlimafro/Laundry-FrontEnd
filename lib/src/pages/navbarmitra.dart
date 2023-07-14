@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:laundry/src/pages/Mitra/Dashboard/index.dart';
+import 'package:laundry/src/pages/Profil/index.dart';
 
 import '../config/size_config.dart';
 import '../router/constant.dart';
@@ -21,7 +22,7 @@ class _MainPageMitraState extends State<MainPageMitra> {
     MitraDashboard(
       key: const PageStorageKey<String>('pa-home'),
     ),
-    Container(
+    Profil(
       key: const PageStorageKey<String>('pa-favorite'),
     ),
   ];
