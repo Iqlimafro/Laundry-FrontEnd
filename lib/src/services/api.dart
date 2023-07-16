@@ -16,6 +16,7 @@ import '../model/loginmodel.dart';
 import '../model/ordermitramodel.dart';
 import '../model/ordermodel.dart';
 import '../model/transaksimodel.dart';
+import '../model/updatestatusmodel.dart';
 import '../model/usermodel.dart';
 
 class ApiService extends GetConnect with BaseController{
@@ -200,6 +201,31 @@ class ApiService extends GetConnect with BaseController{
     print(response);
     if (response != null) {
       var produk = orderFromJson(response);
+      return produk;
+    } else {
+      return null;
+    }
+  }
+
+  Future<UpdateModel?> updateStatus(
+      String id, String value, String weight, String status) async {
+    dynamic body = ({"weight": weight, "value": value, "status": status});
+    final response = await BaseClient()
+        .post(globalApi, '/api/update-order-total/$id', body, "")
+        .catchError((error) {
+      if (error is BadRequestException) {
+        var apiError = json.decode(error.message!);
+        Get.rawSnackbar(message: apiError["message"]);
+      } else if (error is UnAuthorizedException) {
+        var apiError = json.decode(error.message!);
+        Get.rawSnackbar(message: apiError["message"]);
+      } else {
+        handleError(error);
+      }
+    });
+    print(response);
+    if (response != null) {
+      var produk = updatestatusFromJson(response);
       return produk;
     } else {
       return null;

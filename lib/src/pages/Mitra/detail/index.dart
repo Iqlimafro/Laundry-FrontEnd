@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:laundry/src/config/size_config.dart';
+import 'package:laundry/src/controller/detailondrycontroller.dart';
+import 'package:laundry/src/controller/londrycontroller.dart';
+import 'package:laundry/src/controller/updatestatuscontroller.dart';
+import 'package:laundry/src/controller/usercontroller.dart';
 import 'package:laundry/src/router/constant.dart';
 import 'package:laundry/src/services/assets.dart';
 
@@ -18,11 +22,16 @@ class _DetailMitraState extends State<DetailMitra> {
   var address = Get.arguments[3];
   var username = Get.arguments[4];
   var type = Get.arguments[5];
+  var idUser = Get.arguments[6];
+  UserController user = Get.put(UserController());
+  DetailLaundryController detail = Get.put(DetailLaundryController());
+  UpdateController update = Get.put(UpdateController());
   late TextEditingController editCons;
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
+    detail.detailLondry(idUser.toString());
     editCons = TextEditingController(text: weight);
   }
 
@@ -144,6 +153,11 @@ class _DetailMitraState extends State<DetailMitra> {
                   child: InkWell(
                     onTap: () {
                       if (status == 'Diproses') {
+                        update.updateStat(
+                            idOder.toString(),
+                            editCons.text,
+                            detail.tes.value.data![0].priceKilo.toString(),
+                            "Dicuci");
                       } else {}
                     },
                     child: Container(
@@ -170,6 +184,11 @@ class _DetailMitraState extends State<DetailMitra> {
                   child: InkWell(
                     onTap: () {
                       if (status == 'Dicuci') {
+                        update.updateStat(
+                            idOder.toString(),
+                            editCons.text,
+                            detail.tes.value.data![0].priceKilo.toString(),
+                            "Selesai");
                       } else if (status == 'Selesai') {
                       } else {}
                     },
