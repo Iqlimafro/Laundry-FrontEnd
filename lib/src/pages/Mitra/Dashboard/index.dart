@@ -163,7 +163,11 @@ class _MitraDashboardState extends State<MitraDashboard> {
                                   Get.toNamed(detailMiraRoute, arguments: [
                                 order.order.value.data![index].id,
                                 order.order.value.data![index].weight,
-                                order.order.value.data![index].status
+                                order.order.value.data![index].status,
+                                order.order.value.data![index].user!.address,
+                                order.order.value.data![index].user!.username,
+                                order.order.value.data![index].type,
+                                
                               ]),
                               child: Padding(
                                 padding: EdgeInsets.only(
