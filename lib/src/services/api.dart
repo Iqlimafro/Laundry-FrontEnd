@@ -13,6 +13,7 @@ import '../model/detaillondrymodel.dart';
 import '../model/itemmodel.dart';
 import '../model/listlondrymodel.dart';
 import '../model/loginmodel.dart';
+import '../model/ordermitramodel.dart';
 import '../model/ordermodel.dart';
 import '../model/transaksimodel.dart';
 import '../model/usermodel.dart';
@@ -151,7 +152,27 @@ class ApiService extends GetConnect with BaseController{
       return null;
     }
   }
-
+  Future mitraorder(String id) async {
+    final token = await getToken();
+    final response = await BaseClient()
+        .get(globalApi, '/api/get-order/laundry/$id', "")
+        .catchError((error) {
+      if (error is BadRequestException) {
+        var apiError = json.decode(error.message!);
+        // print(error.message!);
+        Get.rawSnackbar(message: apiError["message"]);
+      } else {
+        handleError(error);
+      }
+    });
+    print(response);
+    if (response != null) {
+      var note = mitraorderFromJson(response);
+      return note;
+    } else {
+      return null;
+    }
+  }
   Future<OrderModel?> order(String deskripsi, String metode, String berat,
       String jumlah, String userid, String londryid) async {
     dynamic body = ({

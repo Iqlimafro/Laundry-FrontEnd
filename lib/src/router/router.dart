@@ -4,6 +4,7 @@ import 'package:laundry/src/pages/Diterima/index.dart';
 import 'package:laundry/src/pages/Keranjang/index.dart';
 import 'package:laundry/src/pages/Mitra/Dashboard/index.dart';
 import 'package:laundry/src/pages/Home/index.dart';
+import 'package:laundry/src/pages/Mitra/detail/index.dart';
 import 'package:laundry/src/pages/Profil/index.dart';
 import 'package:laundry/src/pages/Register/index.dart';
 import 'package:laundry/src/pages/Selesai/index.dart';
@@ -29,4 +30,5 @@ final List<GetPage<dynamic>>? routes = [
   GetPage(name: diprosesRoute, page: () => Diproses()),
   GetPage(name: selesaiRoute, page: () => Selesai()),
   GetPage(name: detailRoute, page: () => Detail()),
+  GetPage(name: detailMiraRoute, page: () => DetailMitra()),
 ];
