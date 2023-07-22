@@ -3,7 +3,7 @@ import 'package:laundry/src/model/ordermitramodel.dart';
 
 import '../services/api.dart';
 
-class OrderMitraController extends GetxController {
+class   OrderMitraController extends GetxController {
   var isLoading = true.obs;
   var order = OrderMitraModel().obs;
   @override

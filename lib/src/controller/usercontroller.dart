@@ -9,8 +9,8 @@ class UserController extends GetxController {
   var user = UserModel().obs;
   @override
   void onInit() {
-    // TODO: implement onInit
     super.onInit();
+    isLoading;
   }
 
   Future getuser() async {

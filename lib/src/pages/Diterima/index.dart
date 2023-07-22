@@ -182,6 +182,7 @@ class _DiterimaState extends State<Diterima> {
                               );
                             }
                             return ListView.builder(
+                              shrinkWrap: true,
                                 itemCount: transaksi.user.value.data!.length,
                                 itemBuilder: (context, index) {
                                   return Padding(
