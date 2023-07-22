@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:laundry/src/controller/ordermitracontroller.dart';
+import 'package:laundry/src/controller/usercontroller.dart';
 import 'package:laundry/src/router/constant.dart';
 import 'package:laundry/src/services/assets.dart';
 // import 'package:laundry/src/services/assets.dart';
@@ -15,12 +17,16 @@ class MitraDashboard extends StatefulWidget {
 class _MitraDashboardState extends State<MitraDashboard> {
   //
   //  selectedRadio;
+  UserController userdash = Get.put(UserController());
+  OrderMitraController order = Get.put(OrderMitraController());
 
-  // @override
-  // void initState() {
-  //   super.initState();
-  //   selectedRadio = 0;
-  // }
+  @override
+  void initState() {
+    super.initState();
+    userdash.getuser().then((value) {
+      order.ordermitra(userdash.user.value.id.toString());
+    });
+  }
 
   // setSelectedRadio(int val) {
   //   setState(() {
@@ -77,11 +83,18 @@ class _MitraDashboardState extends State<MitraDashboard> {
                                 ),
                               ),
                               SizedBox(width: 5),
-                              Text(
-                                'Username',
-                                style: TextStyle(
-                                    color: Colors.white, fontSize: 20),
-                              ),
+                              Obx(() {
+                                if (userdash.isLoading.value) {
+                                  return const Center(
+                                    child: CircularProgressIndicator(),
+                                  );
+                                }
+                                return Text(
+                                  userdash.user.value.username!,
+                                  style: TextStyle(
+                                      color: Colors.white, fontSize: 20),
+                                );
+                              }),
                             ],
                           ),
                           SizedBox(height: 10),
@@ -120,482 +133,247 @@ class _MitraDashboardState extends State<MitraDashboard> {
               SizedBox(height: 15),
               Padding(
                 padding: EdgeInsets.only(left: 25, right: 25),
-                child: Column(
-                  children: [
-                    Container(
-                      height: 35,
-                      width: MediaQuery.of(context).size.width,
-                      decoration: BoxDecoration(
-                          color: Color(0xFF048F98),
-                          borderRadius: BorderRadius.circular(20)),
-                      child: Center(
-                        child: InkWell(
-                          onTap: () => Get.toNamed(keranjangRoute),
-                          child: Text(
-                            'Keranjang Anda',
-                            style: TextStyle(
-                                fontSize: 17,
+                child: Obx(() {
+                  if (order.isLoading.value) {
+                    return const Center(
+                      child: CircularProgressIndicator(),
+                    );
+                  }
+
+                  return ListView.builder(
+                      shrinkWrap: true,
+                      physics: const NeverScrollableScrollPhysics(),
+                      itemCount: order.order.value.data!.length,
+                      itemBuilder: (context, index) {
+                        return Padding(
+                          padding: const EdgeInsets.only(bottom: 10),
+                          child: Container(
+                            width: MediaQuery.of(context).size.width,
+                            decoration: BoxDecoration(
                                 color: Colors.white,
-                                fontWeight: FontWeight.bold),
+                                boxShadow: [
+                                  BoxShadow(
+                                      color: Colors.black87,
+                                      blurRadius: 2,
+                                      offset: Offset(0, 1))
+                                ],
+                                borderRadius: BorderRadius.circular(15)),
+                            child: InkWell(
+                              onTap: () =>
+                                  Get.toNamed(detailMiraRoute, arguments: [
+                                order.order.value.data![index].id,
+                                order.order.value.data![index].weight,
+                                order.order.value.data![index].status,
+                                order.order.value.data![index].user!.address,
+                                order.order.value.data![index].user!.username,
+                                order.order.value.data![index].type,
+                                userdash.user.value.id,
+                              ]),
+                              child: Padding(
+                                padding: EdgeInsets.only(
+                                    left: 15, right: 15, top: 10),
+                                child: Column(
+                                  children: [
+                                    Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Row(
+                                          children: [
+                                            InkWell(
+                                                onTap: () =>
+                                                    Get.toNamed(userRoute),
+                                                child: Image.asset(user)),
+                                            Column(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.start,
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              children: [
+                                                Text(
+                                                  order.order.value.data![index]
+                                                      .user!.username!,
+                                                  style: const TextStyle(
+                                                      fontSize: 21,
+                                                      color: Colors.black,
+                                                      fontWeight:
+                                                          FontWeight.bold),
+                                                ),
+                                                const SizedBox(height: 10),
+                                                Row(
+                                                  children: [
+                                                    Container(
+                                                      height: 35,
+                                                      width: 90,
+                                                      decoration: BoxDecoration(
+                                                          color:
+                                                              Color(0xFF95DED9),
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(
+                                                                      25)),
+                                                      child: const Center(
+                                                        child: Text(
+                                                          'Per KG',
+                                                          style: TextStyle(
+                                                              color:
+                                                                  Colors.white,
+                                                              fontSize: 17,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .w600),
+                                                        ),
+                                                      ),
+                                                    ),
+                                                    const SizedBox(
+                                                      width: 7,
+                                                    ),
+                                                    Row(
+                                                      children: [
+                                                        const Text(
+                                                          'Jasa:',
+                                                          style: TextStyle(
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .w500,
+                                                              fontSize: 16),
+                                                        ),
+                                                        const SizedBox(
+                                                          width: 7,
+                                                        ),
+                                                        Text(
+                                                          order
+                                                              .order
+                                                              .value
+                                                              .data![index]
+                                                              .pickup!,
+                                                          style:
+                                                              const TextStyle(
+                                                                  color: Colors
+                                                                      .blue,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w500,
+                                                                  fontSize: 16),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  ],
+                                                ),
+                                                const SizedBox(height: 10),
+                                                Row(
+                                                  children: [
+                                                    const Text(
+                                                      'Status:',
+                                                      style: TextStyle(
+                                                          fontWeight:
+                                                              FontWeight.w500,
+                                                          fontSize: 16),
+                                                    ),
+                                                    const SizedBox(
+                                                      width: 7,
+                                                    ),
+                                                    Text(
+                                                      order.order.value
+                                                          .data![index].status!,
+                                                      style: const TextStyle(
+                                                          color: Colors.green,
+                                                          fontWeight:
+                                                              FontWeight.w500,
+                                                          fontSize: 16),
+                                                    ),
+                                                  ],
+                                                ),
+                                                const SizedBox(height: 10),
+                                                Row(
+                                                  children: [
+                                                    const Text(
+                                                      'Berat:',
+                                                      style: TextStyle(
+                                                          fontWeight:
+                                                              FontWeight.w500,
+                                                          fontSize: 16),
+                                                    ),
+                                                    const SizedBox(
+                                                      width: 7,
+                                                    ),
+                                                    Text(
+                                                      '${order.order.value.data![index].weight!} KG',
+                                                      style: const TextStyle(
+                                                          // color: Colors.green,
+                                                          fontWeight:
+                                                              FontWeight.w500,
+                                                          fontSize: 16),
+                                                    ),
+                                                  ],
+                                                ),
+                                                const SizedBox(height: 10),
+                                                Row(
+                                                  children: [
+                                                    const Text(
+                                                      'Total Harga:',
+                                                      style: TextStyle(
+                                                          fontWeight:
+                                                              FontWeight.w500,
+                                                          fontSize: 16),
+                                                    ),
+                                                    const SizedBox(
+                                                      width: 7,
+                                                    ),
+                                                    Text(
+                                                      'Rp. ${order.order.value.data![index].totalAmount!}',
+                                                      style: const TextStyle(
+                                                          fontWeight:
+                                                              FontWeight.w500,
+                                                          fontSize: 16),
+                                                    ),
+                                                  ],
+                                                ),
+                                                const SizedBox(height: 10),
+                                              ],
+                                            ),
+                                          ],
+                                        ),
+                                        // Row(
+                                        //   children: [
+                                        //     Container(
+                                        //       decoration: BoxDecoration(
+                                        //           borderRadius:
+                                        //               BorderRadius.circular(12),
+                                        //           color: order
+                                        //                       .order
+                                        //                       .value
+                                        //                       .data![index]
+                                        //                       .status ==
+                                        //                   'Diproses'
+                                        //               ? Colors.blue
+                                        //               : Colors.grey),
+                                        //       child:  Padding(
+                                        //         padding:const EdgeInsets.all(8.0),
+                                        //         child: Text(
+                                        //           'Dicuci',
+                                        //           style: const TextStyle(
+                                        //               color: Colors.white,
+                                        //               fontWeight: FontWeight.w500,
+                                        //               fontSize: 17),
+                                        //         ),
+                                        //       ),
+                                        //     )
+                                        //   ],
+                                        // )
+                                      ],
+                                    ),
+                                    // SizedBox(height: 5),
+                                  ],
+                                ),
+                              ),
+                            ),
                           ),
-                        ),
-                      ),
-                    ),
-                    SizedBox(height: 20),
-                    Container(
-                      height: 240,
-                      width: MediaQuery.of(context).size.width,
-                      decoration: BoxDecoration(
-                          color: Colors.white,
-                          boxShadow: [
-                            BoxShadow(
-                                color: Colors.black87,
-                                blurRadius: 2,
-                                offset: Offset(0, 1))
-                          ],
-                          borderRadius: BorderRadius.circular(15)),
-                      child: Padding(
-                        padding: EdgeInsets.only(left: 15, right: 15, top: 10),
-                        child: Column(
-                          children: [
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.end,
-                                  children: <Widget>[
-                                    Icon(
-                                      Icons.close,
-                                      color: Color(0xFF7F8C8D),
-                                      size: 25,
-                                    ),
-                                  ],
-                                ),
-                                Row(
-                                  children: [
-                                    InkWell(
-                                        onTap: () => Get.toNamed(userRoute),
-                                        child: Image.asset(user)),
-                                    Column(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.start,
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Text(
-                                          'Nama Customer',
-                                          style: TextStyle(
-                                              fontSize: 25,
-                                              color: Colors.black,
-                                              fontWeight: FontWeight.bold),
-                                        ),
-                                        SizedBox(height: 10),
-                                        Row(
-                                          children: [
-                                            Container(
-                                              height: 35,
-                                              width: 90,
-                                              decoration: BoxDecoration(
-                                                  color: Color(0xFF95DED9),
-                                                  borderRadius:
-                                                      BorderRadius.circular(
-                                                          25)),
-                                              child: Center(
-                                                child: Text(
-                                                  'Satuan',
-                                                  style: TextStyle(
-                                                      color: Colors.white,
-                                                      fontSize: 17,
-                                                      fontWeight:
-                                                          FontWeight.w600),
-                                                ),
-                                              ),
-                                            ),
-                                            SizedBox(width: 10),
-                                            Container(
-                                              height: 35,
-                                              width: 90,
-                                              decoration: BoxDecoration(
-                                                color: Colors.white,
-                                                borderRadius:
-                                                    BorderRadius.circular(25),
-                                                boxShadow: [
-                                                  BoxShadow(
-                                                      color: Color(0xFF95DED9),
-                                                      blurRadius: 2,
-                                                      offset: Offset(0, 1))
-                                                ],
-                                              ),
-                                              child: Center(
-                                                child: Text(
-                                                  'Per Kg',
-                                                  style: TextStyle(
-                                                      color: Color(0xFF95DED9),
-                                                      fontSize: 17,
-                                                      fontWeight:
-                                                          FontWeight.w600),
-                                                ),
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      ],
-                                    ),
-                                  ],
-                                )
-                              ],
-                            ),
-                            Container(
-                              padding: EdgeInsets.symmetric(horizontal: 75),
-                              child: Row(
-                                children: [
-                                  ButtonBar(
-                                    children: [
-                                      Radio(
-                                        value: 1,
-                                        groupValue: 0,
-                                        activeColor: Colors.green,
-                                        onChanged: (val) {
-                                          print("Radio $val");
-                                        },
-                                      ),
-                                    ],
-                                  ),
-                                  Image.asset(
-                                    baju,
-                                  ),
-                                  ButtonBar(
-                                    children: [
-                                      Radio(
-                                        value: 2,
-                                        groupValue: 0,
-                                        activeColor: Colors.green,
-                                        onChanged: (val) {
-                                          print("Radio $val");
-                                        },
-                                      ),
-                                    ],
-                                  ),
-                                  Image.asset(
-                                    celana,
-                                  )
-                                ],
-                              ),
-                            ),
-                            // SizedBox(height: 5),
-                            Container(
-                              padding: EdgeInsets.only(left: 75),
-                              child: Row(
-                                children: [
-                                  Text(
-                                    'Jumlah',
-                                    style: TextStyle(
-                                        fontSize: 20,
-                                        color: Color(0xFF717171),
-                                        fontWeight: FontWeight.w500),
-                                  ),
-                                  SizedBox(width: 5),
-                                  Container(
-                                    height: 20,
-                                    width: 20,
-                                    decoration: BoxDecoration(
-                                        color: Color(0xFFADADAD),
-                                        borderRadius: BorderRadius.circular(5)),
-                                    child: Center(
-                                      child: Text(
-                                        '-',
-                                        style: TextStyle(
-                                            fontSize: 20,
-                                            color: Colors.white,
-                                            fontWeight: FontWeight.bold),
-                                      ),
-                                    ),
-                                  ),
-                                  SizedBox(width: 8),
-                                  Text(
-                                    '2',
-                                    style: TextStyle(
-                                      fontSize: 20,
-                                      color: Colors.black,
-                                    ),
-                                  ),
-                                  SizedBox(width: 8),
-                                  Container(
-                                    height: 20,
-                                    width: 20,
-                                    decoration: BoxDecoration(
-                                        color: Color(0xFF51D0D0),
-                                        borderRadius: BorderRadius.circular(5)),
-                                    child: Center(
-                                      child: Text(
-                                        '+',
-                                        style: TextStyle(
-                                            fontSize: 20,
-                                            color: Colors.white,
-                                            fontWeight: FontWeight.bold),
-                                      ),
-                                    ),
-                                  ),
-                                  SizedBox(width: 10),
-                                  Text(
-                                    'Total : 8.000',
-                                    style: TextStyle(
-                                        color: Colors.black,
-                                        fontSize: 20,
-                                        fontWeight: FontWeight.bold),
-                                  ),
-                                  SizedBox(width: 20),
-                                  Container(
-                                    height: 35,
-                                    width: 90,
-                                    decoration: BoxDecoration(
-                                        color: Color(0xFF048F98),
-                                        borderRadius: BorderRadius.circular(6)),
-                                    child: Center(
-                                      child: Text(
-                                        'Terima',
-                                        style: TextStyle(
-                                            fontSize: 19,
-                                            color: Colors.white,
-                                            fontWeight: FontWeight.w400),
-                                      ),
-                                    ),
-                                  )
-                                ],
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                    SizedBox(height: 20),
-                    Container(
-                      height: 240,
-                      width: MediaQuery.of(context).size.width,
-                      decoration: BoxDecoration(
-                          color: Colors.white,
-                          boxShadow: [
-                            BoxShadow(
-                                color: Colors.black87,
-                                blurRadius: 2,
-                                offset: Offset(0, 1))
-                          ],
-                          borderRadius: BorderRadius.circular(15)),
-                      child: Padding(
-                        padding: EdgeInsets.only(left: 15, right: 15, top: 10),
-                        child: Column(
-                          children: [
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.end,
-                                  children: <Widget>[
-                                    Icon(
-                                      Icons.close,
-                                      color: Color(0xFF7F8C8D),
-                                      size: 25,
-                                    ),
-                                  ],
-                                ),
-                                Row(
-                                  children: [
-                                    Image.asset(user),
-                                    Column(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.start,
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Text(
-                                          'Nama Customer',
-                                          style: TextStyle(
-                                              fontSize: 25,
-                                              color: Colors.black,
-                                              fontWeight: FontWeight.bold),
-                                        ),
-                                        SizedBox(height: 10),
-                                        Row(
-                                          children: [
-                                            Container(
-                                              height: 35,
-                                              width: 90,
-                                              decoration: BoxDecoration(
-                                                  color: Color(0xFF95DED9),
-                                                  borderRadius:
-                                                      BorderRadius.circular(
-                                                          25)),
-                                              child: Center(
-                                                child: Text(
-                                                  'Satuan',
-                                                  style: TextStyle(
-                                                      color: Colors.white,
-                                                      fontSize: 17,
-                                                      fontWeight:
-                                                          FontWeight.w600),
-                                                ),
-                                              ),
-                                            ),
-                                            SizedBox(width: 10),
-                                            Container(
-                                              height: 35,
-                                              width: 90,
-                                              decoration: BoxDecoration(
-                                                color: Colors.white,
-                                                borderRadius:
-                                                    BorderRadius.circular(25),
-                                                boxShadow: [
-                                                  BoxShadow(
-                                                      color: Color(0xFF95DED9),
-                                                      blurRadius: 2,
-                                                      offset: Offset(0, 1))
-                                                ],
-                                              ),
-                                              child: Center(
-                                                child: Text(
-                                                  'Per Kg',
-                                                  style: TextStyle(
-                                                      color: Color(0xFF95DED9),
-                                                      fontSize: 17,
-                                                      fontWeight:
-                                                          FontWeight.w600),
-                                                ),
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      ],
-                                    ),
-                                  ],
-                                )
-                              ],
-                            ),
-                            Container(
-                              padding: EdgeInsets.symmetric(horizontal: 75),
-                              child: Row(
-                                children: [
-                                  ButtonBar(
-                                    children: [
-                                      Radio(
-                                        value: 1,
-                                        groupValue: 0,
-                                        activeColor: Colors.green,
-                                        onChanged: (val) {
-                                          print("Radio $val");
-                                        },
-                                      ),
-                                    ],
-                                  ),
-                                  Image.asset(
-                                    baju,
-                                  ),
-                                  ButtonBar(
-                                    children: [
-                                      Radio(
-                                        value: 2,
-                                        groupValue: 0,
-                                        activeColor: Colors.green,
-                                        onChanged: (val) {
-                                          print("Radio $val");
-                                        },
-                                      ),
-                                    ],
-                                  ),
-                                  Image.asset(
-                                    celana,
-                                  )
-                                ],
-                              ),
-                            ),
-                            // SizedBox(height: 10),
-                            Container(
-                              padding: EdgeInsets.only(left: 75),
-                              child: Row(
-                                children: [
-                                  Text(
-                                    'Jumlah',
-                                    style: TextStyle(
-                                        fontSize: 20,
-                                        color: Color(0xFF717171),
-                                        fontWeight: FontWeight.w500),
-                                  ),
-                                  SizedBox(width: 5),
-                                  Container(
-                                    height: 20,
-                                    width: 20,
-                                    decoration: BoxDecoration(
-                                        color: Color(0xFFADADAD),
-                                        borderRadius: BorderRadius.circular(5)),
-                                    child: Center(
-                                      child: Text(
-                                        '-',
-                                        style: TextStyle(
-                                            fontSize: 20,
-                                            color: Colors.white,
-                                            fontWeight: FontWeight.bold),
-                                      ),
-                                    ),
-                                  ),
-                                  SizedBox(width: 8),
-                                  Text(
-                                    '2',
-                                    style: TextStyle(
-                                      fontSize: 20,
-                                      color: Colors.black,
-                                    ),
-                                  ),
-                                  SizedBox(width: 8),
-                                  Container(
-                                    height: 20,
-                                    width: 20,
-                                    decoration: BoxDecoration(
-                                        color: Color(0xFF51D0D0),
-                                        borderRadius: BorderRadius.circular(5)),
-                                    child: Center(
-                                      child: Text(
-                                        '+',
-                                        style: TextStyle(
-                                            fontSize: 20,
-                                            color: Colors.white,
-                                            fontWeight: FontWeight.bold),
-                                      ),
-                                    ),
-                                  ),
-                                  SizedBox(width: 10),
-                                  Text(
-                                    'Total : 8.000',
-                                    style: TextStyle(
-                                        color: Colors.black,
-                                        fontSize: 20,
-                                        fontWeight: FontWeight.bold),
-                                  ),
-                                  SizedBox(width: 20),
-                                  Container(
-                                    height: 35,
-                                    width: 90,
-                                    decoration: BoxDecoration(
-                                        color: Color(0xFF048F98),
-                                        borderRadius: BorderRadius.circular(6)),
-                                    child: Center(
-                                      child: Text(
-                                        'Terima',
-                                        style: TextStyle(
-                                            fontSize: 19,
-                                            color: Colors.white,
-                                            fontWeight: FontWeight.w400),
-                                      ),
-                                    ),
-                                  )
-                                ],
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              )
+                        );
+                      });
+                }),
+              ),
+              const SizedBox(height: 80),
             ],
           ),
         ),

@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:laundry/src/config/size_config.dart';
+import 'package:laundry/src/controller/londrycontroller.dart';
+import 'package:laundry/src/controller/usercontroller.dart';
 import 'package:laundry/src/router/constant.dart';
 import 'package:laundry/src/services/assets.dart';
+import 'package:laundry/src/pages/navbar.dart';
 
 class UserDashboard extends StatefulWidget {
   const UserDashboard({super.key});
@@ -11,8 +15,20 @@ class UserDashboard extends StatefulWidget {
 }
 
 class _UserDashboardState extends State<UserDashboard> {
+  LaundryController londry = Get.put(LaundryController());
+  UserController username = Get.put(UserController());
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    londry.listLondry();
+    username.getuser();
+  }
+
   @override
   Widget build(BuildContext context) {
+    SizeConfig().init(context);
     return Scaffold(
       body: SafeArea(
         child: SingleChildScrollView(
@@ -56,7 +72,7 @@ class _UserDashboardState extends State<UserDashboard> {
                                 height: 70,
                               ),
                               Text(
-                                'Username',
+                                username.user.value.username.toString(),
                                 style: TextStyle(
                                     color: Colors.white, fontSize: 20),
                               ),
@@ -99,46 +115,70 @@ class _UserDashboardState extends State<UserDashboard> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    InkWell(
-                      onTap: () => Get.toNamed(detailRoute),
-                      child: Text(
-                        'Mitra',
-                        style:
-                            TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
-                      ),
+                    Text(
+                      'Mitra',
+                      style:
+                          TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
                     ),
                     SizedBox(height: 15),
-                    Row(
-                      children: [
-                        Stack(
-                          children: [
-                            Column(
-                              children: [
-                                Container(
-                                  padding: EdgeInsets.only(bottom: 70),
-                                  height: 180,
-                                  width: 140,
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(10),
-                                    color: Colors.white,
-                                    boxShadow: [
-                                      BoxShadow(
-                                          color: Colors.black38,
-                                          blurRadius: 2,
-                                          offset: const Offset(0, 1))
-                                    ],
+                    SizedBox(
+                      height: SizeConfig.safeBlockVertical! * 30,
+                      child: Obx(() {
+                        if (londry.isLoading.value) {
+                          return const Center(
+                              child: CircularProgressIndicator());
+                        } else {
+                          return ListView.builder(
+                              scrollDirection: Axis.horizontal,
+                              itemCount: londry.user.value.data!.length,
+                              itemBuilder: (context, index) {
+                                return InkWell(
+                                  onTap: () => Get.toNamed(detailRoute,
+                                      arguments: [
+                                        londry.user.value.data![index].id
+                                      ]),
+                                  child: Padding(
+                                    padding: const EdgeInsets.only(right: 10),
+                                    child: Container(
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(10),
+                                        color: Colors.white,
+                                        boxShadow: const [
+                                          BoxShadow(
+                                              color: Colors.black38,
+                                              blurRadius: 2,
+                                              offset: const Offset(0, 1))
+                                        ],
+                                      ),
+                                      child: Column(
+                                        children: [
+                                          Container(
+                                            // padding: EdgeInsets.only(bottom: 70),
+                                            height: 180,
+                                            width: 140,
+                                            
+                                            child: Image.network(
+                                              londry.user.value.data![index]
+                                                  .image!,
+                                              height: 200,
+                                              width: 150,
+                                            ),
+                                          ),
+                                          Text(
+                                            londry
+                                                .user.value.data![index].name!,
+                                            style: TextStyle(
+                                                fontSize: 17,
+                                                fontWeight: FontWeight.w500),
+                                          )
+                                        ],
+                                      ),
+                                    ),
                                   ),
-                                  child: Image.asset(
-                                    icon5,
-                                    height: 200,
-                                    width: 150,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ],
-                        )
-                      ],
+                                );
+                              });
+                        }
+                      }),
                     )
                   ],
                 ),
@@ -147,6 +187,7 @@ class _UserDashboardState extends State<UserDashboard> {
           ),
         ),
       ),
+     
     );
   }
 }

@@ -8,6 +8,7 @@ import 'package:flutter/material.dart';
 // =======
 import 'package:get/get.dart';
 import 'package:laundry/src/config/preference.dart';
+import 'package:laundry/src/controller/usercontroller.dart';
 import 'package:laundry/src/router/constant.dart';
 import 'package:laundry/src/services/assets.dart';
 // >>>>>>> 6b0a1579532fc87613b49435aeef42e5a1a3bf24
@@ -20,6 +21,7 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
+  UserController user = Get.put(UserController());
   void _init() {
     Timer(const Duration(seconds: 3), () {
       getPref();
@@ -29,7 +31,16 @@ class _SplashScreenState extends State<SplashScreen> {
   void getPref() async {
     String? token = await getToken();
     if (token != '' && token != null) {
-      Get.offAndToNamed(mainRoute);
+      await user.getuser();
+      if (user.user.value.role == null) {
+        Get.offAndToNamed(registerRoute);
+      } else {
+      if (user.user.value.role == 'mitra') {
+        Get.offAndToNamed(mitraRoute);
+      } else if (user.user.value.role == 'user') {
+        Get.offAndToNamed(userRoute);
+      }
+      }
     } else {
       Get.offAndToNamed(registerRoute);
     }
